@@ -1,0 +1,9 @@
+@source '../../../../vendor/awcodes/filament-curator/resources/**/*.blade.php';
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/Admin/**/*';
+@source '../../../../resources/views/filament/admin/**/*';
+
+/* @import '../../../../node_modules/cropperjs/dist/cropper.css';
+
+@import '../../../../vendor/awcodes/filament-curator/'; */
