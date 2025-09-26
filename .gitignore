@@ -22,25 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-
-# AI and Development Tools
 .github/copilot-instructions.md
-.github/copilot.yml
-.github/copilot/
-.junie/
-.vscode/
-.cursor/
-cursor.config.json
-.copilot/
-*copilot*
-*mcp*
-*.mcp.json
-mcp.json
-.ai/
-.claude/
-.openai/
-ai-instructions.md
-copilot-instructions.md
-.boost/
-boost.json
-.anthropic/
+.junie
+.vscode
