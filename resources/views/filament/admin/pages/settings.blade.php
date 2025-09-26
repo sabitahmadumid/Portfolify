@@ -1,9 +1,9 @@
 <x-filament-panels::page>
-    <form wire:submit="save">
+    <form wire:submit="save" class="fi-page-content">
         {{ $this->form }}
         
-        <div class="flex justify-end mt-6">
-            {{ $this->getFormActions() }}
+        <div class="mt-6">
+            {{ $this->getSaveFormAction() }}
         </div>
     </form>
 </x-filament-panels::page>
