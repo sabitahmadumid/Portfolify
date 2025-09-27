@@ -56,6 +56,7 @@ class Settings extends AbstractPageSettings
         $blogSettings = $this->getSettingsForGroup('blog');
         $seoSettings = $this->getSettingsForGroup('seo');
         $contactSettings = $this->getSettingsForGroup('contact');
+        $aboutSettings = $this->getSettingsForGroup('about');
 
         return [
             // General/Site settings
@@ -161,6 +162,48 @@ class Settings extends AbstractPageSettings
             'contact_email_description' => $contactSettings['contact_email_description'] ?? 'Send me an email anytime',
             'contact_phone_description' => $contactSettings['contact_phone_description'] ?? 'Call or text me',
             'contact_address_description' => $contactSettings['contact_address_description'] ?? 'Located in',
+
+            // About page settings
+            'about_hero_title' => $aboutSettings['about_hero_title'] ?? 'About Me',
+            'about_hero_description' => $aboutSettings['about_hero_description'] ?? "I'm a passionate developer who loves creating digital experiences that make a difference. With years of experience in web development, I combine technical expertise with creative vision to build solutions that truly serve their users.",
+            'about_hero_button_work' => $aboutSettings['about_hero_button_work'] ?? 'View My Work',
+            'about_hero_button_contact' => $aboutSettings['about_hero_button_contact'] ?? 'Get In Touch',
+
+            // Journey section
+            'about_journey_title' => $aboutSettings['about_journey_title'] ?? 'My Journey',
+            'about_journey_paragraph_1' => $aboutSettings['about_journey_paragraph_1'] ?? "My journey into web development began over 5 years ago when I discovered the power of code to bring ideas to life. What started as curiosity quickly became a passion, and I've been fortunate to work on projects ranging from small business websites to complex web applications.",
+            'about_journey_paragraph_2' => $aboutSettings['about_journey_paragraph_2'] ?? "I believe in the power of continuous learning and staying at the forefront of technology. Whether it's mastering a new framework, exploring design trends, or diving deep into user experience principles, I'm always pushing myself to grow and deliver better solutions.",
+            'about_journey_paragraph_3' => $aboutSettings['about_journey_paragraph_3'] ?? "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I'm passionate about clean code, thoughtful design, and creating digital experiences that users truly love.",
+
+            // Skills section
+            'about_skills_title' => $aboutSettings['about_skills_title'] ?? 'Skills & Expertise',
+            'about_skill_1_title' => $aboutSettings['about_skill_1_title'] ?? 'Frontend Development',
+            'about_skill_1_description' => $aboutSettings['about_skill_1_description'] ?? 'Creating responsive, interactive user interfaces with modern frameworks and vanilla JavaScript.',
+            'about_skill_1_tags' => $aboutSettings['about_skill_1_tags'] ?? ['React', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'Alpine.js'],
+            'about_skill_2_title' => $aboutSettings['about_skill_2_title'] ?? 'Backend Development',
+            'about_skill_2_description' => $aboutSettings['about_skill_2_description'] ?? 'Building robust server-side applications, APIs, and database architectures.',
+            'about_skill_2_tags' => $aboutSettings['about_skill_2_tags'] ?? ['Laravel', 'Node.js', 'PostgreSQL', 'MySQL', 'Redis'],
+            'about_skill_3_title' => $aboutSettings['about_skill_3_title'] ?? 'Design & UX',
+            'about_skill_3_description' => $aboutSettings['about_skill_3_description'] ?? 'Crafting intuitive user experiences with attention to detail and accessibility.',
+            'about_skill_3_tags' => $aboutSettings['about_skill_3_tags'] ?? ['Figma', 'Adobe Creative Suite', 'Prototyping', 'User Research'],
+
+            // Values section
+            'about_values_title' => $aboutSettings['about_values_title'] ?? 'Values That Drive Me',
+            'about_value_1_title' => $aboutSettings['about_value_1_title'] ?? 'Innovation',
+            'about_value_1_description' => $aboutSettings['about_value_1_description'] ?? 'Constantly exploring new technologies and approaches to solve problems creatively.',
+            'about_value_2_title' => $aboutSettings['about_value_2_title'] ?? 'Quality',
+            'about_value_2_description' => $aboutSettings['about_value_2_description'] ?? 'Delivering exceptional work that exceeds expectations and stands the test of time.',
+            'about_value_3_title' => $aboutSettings['about_value_3_title'] ?? 'Collaboration',
+            'about_value_3_description' => $aboutSettings['about_value_3_description'] ?? 'Working together to achieve shared goals and create meaningful impact.',
+            'about_value_4_title' => $aboutSettings['about_value_4_title'] ?? 'Learning',
+            'about_value_4_description' => $aboutSettings['about_value_4_description'] ?? 'Embracing continuous growth and staying curious about new possibilities.',
+
+            // CTA section
+            'about_cta_title' => $aboutSettings['about_cta_title'] ?? 'Let\'s Create Something',
+            'about_cta_subtitle' => $aboutSettings['about_cta_subtitle'] ?? 'Amazing Together',
+            'about_cta_description' => $aboutSettings['about_cta_description'] ?? 'Ready to bring your ideas to life? I\'d love to hear about your project and explore how we can work together.',
+            'about_cta_button_contact' => $aboutSettings['about_cta_button_contact'] ?? 'Start a Conversation',
+            'about_cta_button_work' => $aboutSettings['about_cta_button_work'] ?? 'View My Work',
         ];
     }
 
@@ -271,6 +314,42 @@ class Settings extends AbstractPageSettings
             'contact_email_description' => $data['contact_email_description'] ?? null,
             'contact_phone_description' => $data['contact_phone_description'] ?? null,
             'contact_address_description' => $data['contact_address_description'] ?? null,
+        ]);
+
+        // Save about settings
+        $this->saveToGroup('about', [
+            'about_hero_title' => $data['about_hero_title'] ?? null,
+            'about_hero_description' => $data['about_hero_description'] ?? null,
+            'about_hero_button_work' => $data['about_hero_button_work'] ?? null,
+            'about_hero_button_contact' => $data['about_hero_button_contact'] ?? null,
+            'about_journey_title' => $data['about_journey_title'] ?? null,
+            'about_journey_paragraph_1' => $data['about_journey_paragraph_1'] ?? null,
+            'about_journey_paragraph_2' => $data['about_journey_paragraph_2'] ?? null,
+            'about_journey_paragraph_3' => $data['about_journey_paragraph_3'] ?? null,
+            'about_skills_title' => $data['about_skills_title'] ?? null,
+            'about_skill_1_title' => $data['about_skill_1_title'] ?? null,
+            'about_skill_1_description' => $data['about_skill_1_description'] ?? null,
+            'about_skill_1_tags' => $data['about_skill_1_tags'] ?? null,
+            'about_skill_2_title' => $data['about_skill_2_title'] ?? null,
+            'about_skill_2_description' => $data['about_skill_2_description'] ?? null,
+            'about_skill_2_tags' => $data['about_skill_2_tags'] ?? null,
+            'about_skill_3_title' => $data['about_skill_3_title'] ?? null,
+            'about_skill_3_description' => $data['about_skill_3_description'] ?? null,
+            'about_skill_3_tags' => $data['about_skill_3_tags'] ?? null,
+            'about_values_title' => $data['about_values_title'] ?? null,
+            'about_value_1_title' => $data['about_value_1_title'] ?? null,
+            'about_value_1_description' => $data['about_value_1_description'] ?? null,
+            'about_value_2_title' => $data['about_value_2_title'] ?? null,
+            'about_value_2_description' => $data['about_value_2_description'] ?? null,
+            'about_value_3_title' => $data['about_value_3_title'] ?? null,
+            'about_value_3_description' => $data['about_value_3_description'] ?? null,
+            'about_value_4_title' => $data['about_value_4_title'] ?? null,
+            'about_value_4_description' => $data['about_value_4_description'] ?? null,
+            'about_cta_title' => $data['about_cta_title'] ?? null,
+            'about_cta_subtitle' => $data['about_cta_subtitle'] ?? null,
+            'about_cta_description' => $data['about_cta_description'] ?? null,
+            'about_cta_button_contact' => $data['about_cta_button_contact'] ?? null,
+            'about_cta_button_work' => $data['about_cta_button_work'] ?? null,
         ]);
 
         \Filament\Notifications\Notification::make()
@@ -600,7 +679,7 @@ class Settings extends AbstractPageSettings
                                     ]),
                             ]),
 
-                        Tab::make('Contact')
+                        Tabs\Tab::make('Contact')
                             ->icon('heroicon-o-envelope')
                             ->schema([
                                 Section::make('Hero Section')
@@ -807,6 +886,182 @@ class Settings extends AbstractPageSettings
                                         TextInput::make('contact_address_description')
                                             ->label('Address Description')
                                             ->placeholder('Located in'),
+                                    ])
+                                    ->columns(2),
+                            ]),
+
+                        // About Page Settings Tab
+                        Tabs\Tab::make('About')
+                            ->icon('heroicon-o-user')
+                            ->schema([
+                                Section::make('Hero Section')
+                                    ->description('Content for the about page hero section')
+                                    ->schema([
+                                        TextInput::make('about_hero_title')
+                                            ->label('Hero Title')
+                                            ->placeholder('About Me'),
+
+                                        Textarea::make('about_hero_description')
+                                            ->label('Hero Description')
+                                            ->rows(4)
+                                            ->placeholder('Brief introduction about yourself...'),
+
+                                        TextInput::make('about_hero_button_work')
+                                            ->label('Work Button Text')
+                                            ->placeholder('View My Work'),
+
+                                        TextInput::make('about_hero_button_contact')
+                                            ->label('Contact Button Text')
+                                            ->placeholder('Get In Touch'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('Journey Section')
+                                    ->description('Tell your story and journey')
+                                    ->schema([
+                                        TextInput::make('about_journey_title')
+                                            ->label('Journey Title')
+                                            ->placeholder('My Journey'),
+
+                                        Textarea::make('about_journey_paragraph_1')
+                                            ->label('First Paragraph')
+                                            ->rows(3)
+                                            ->placeholder('Your journey beginning...'),
+
+                                        Textarea::make('about_journey_paragraph_2')
+                                            ->label('Second Paragraph')
+                                            ->rows(3)
+                                            ->placeholder('Your development and growth...'),
+
+                                        Textarea::make('about_journey_paragraph_3')
+                                            ->label('Third Paragraph')
+                                            ->rows(3)
+                                            ->placeholder('Your current focus and interests...'),
+                                    ]),
+
+                                Section::make('Skills Section')
+                                    ->description('Showcase your skills and expertise')
+                                    ->schema([
+                                        TextInput::make('about_skills_title')
+                                            ->label('Skills Section Title')
+                                            ->placeholder('Skills & Expertise'),
+
+                                        // Skill 1
+                                        TextInput::make('about_skill_1_title')
+                                            ->label('Skill 1 Title')
+                                            ->placeholder('Frontend Development'),
+
+                                        Textarea::make('about_skill_1_description')
+                                            ->label('Skill 1 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your first skill area...'),
+
+                                        TagsInput::make('about_skill_1_tags')
+                                            ->label('Skill 1 Technologies')
+                                            ->placeholder('Add technology tags...'),
+
+                                        // Skill 2
+                                        TextInput::make('about_skill_2_title')
+                                            ->label('Skill 2 Title')
+                                            ->placeholder('Backend Development'),
+
+                                        Textarea::make('about_skill_2_description')
+                                            ->label('Skill 2 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your second skill area...'),
+
+                                        TagsInput::make('about_skill_2_tags')
+                                            ->label('Skill 2 Technologies')
+                                            ->placeholder('Add technology tags...'),
+
+                                        // Skill 3
+                                        TextInput::make('about_skill_3_title')
+                                            ->label('Skill 3 Title')
+                                            ->placeholder('Design & UX'),
+
+                                        Textarea::make('about_skill_3_description')
+                                            ->label('Skill 3 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your third skill area...'),
+
+                                        TagsInput::make('about_skill_3_tags')
+                                            ->label('Skill 3 Technologies')
+                                            ->placeholder('Add technology tags...'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('Values Section')
+                                    ->description('Your core values and principles')
+                                    ->schema([
+                                        TextInput::make('about_values_title')
+                                            ->label('Values Section Title')
+                                            ->placeholder('Values That Drive Me'),
+
+                                        // Value 1
+                                        TextInput::make('about_value_1_title')
+                                            ->label('Value 1 Title')
+                                            ->placeholder('Innovation'),
+
+                                        Textarea::make('about_value_1_description')
+                                            ->label('Value 1 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your first value...'),
+
+                                        // Value 2
+                                        TextInput::make('about_value_2_title')
+                                            ->label('Value 2 Title')
+                                            ->placeholder('Quality'),
+
+                                        Textarea::make('about_value_2_description')
+                                            ->label('Value 2 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your second value...'),
+
+                                        // Value 3
+                                        TextInput::make('about_value_3_title')
+                                            ->label('Value 3 Title')
+                                            ->placeholder('Collaboration'),
+
+                                        Textarea::make('about_value_3_description')
+                                            ->label('Value 3 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your third value...'),
+
+                                        // Value 4
+                                        TextInput::make('about_value_4_title')
+                                            ->label('Value 4 Title')
+                                            ->placeholder('Learning'),
+
+                                        Textarea::make('about_value_4_description')
+                                            ->label('Value 4 Description')
+                                            ->rows(2)
+                                            ->placeholder('Description of your fourth value...'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('Call to Action')
+                                    ->description('Encourage visitors to get in touch')
+                                    ->schema([
+                                        TextInput::make('about_cta_title')
+                                            ->label('CTA Main Title')
+                                            ->placeholder('Let\'s Create Something'),
+
+                                        TextInput::make('about_cta_subtitle')
+                                            ->label('CTA Subtitle')
+                                            ->placeholder('Amazing Together'),
+
+                                        Textarea::make('about_cta_description')
+                                            ->label('CTA Description')
+                                            ->rows(3)
+                                            ->placeholder('Encourage visitors to reach out and work with you...'),
+
+                                        TextInput::make('about_cta_button_contact')
+                                            ->label('Contact Button Text')
+                                            ->placeholder('Start a Conversation'),
+
+                                        TextInput::make('about_cta_button_work')
+                                            ->label('Work Button Text')
+                                            ->placeholder('View My Work'),
                                     ])
                                     ->columns(2),
                             ]),

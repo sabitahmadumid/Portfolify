@@ -13,15 +13,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->command->info('🌱 Starting database seeding...');
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create admin user if doesn't exist
+        $this->command->info('👤 Ensuring admin user exists...');
+        User::firstOrCreate(
+            ['email' => 'admin@portfolify.com'],
+            [
+                'name' => 'Admin User',
+                'email' => 'admin@portfolify.com',
+            ]
+        );
 
+        // Seed all data in correct order
         $this->call([
-            ConfigSeeder::class,
+            ConfigSeeder::class,      // Configuration settings first
+            CategorySeeder::class,    // Categories before posts
+            PortfolioSeeder::class,   // Portfolio items
+            PostSeeder::class,        // Blog posts (requires categories and users)
+            CommentSeeder::class,     // Comments (requires posts)
         ]);
+
+        $this->command->info('✅ Database seeding completed successfully!');
+        $this->command->info('');
+        $this->command->info('🎉 You can now login with:');
+        $this->command->info('   Email: admin@portfolify.com');
+        $this->command->info('   Password: password');
     }
 }

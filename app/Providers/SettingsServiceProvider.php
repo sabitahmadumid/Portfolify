@@ -101,6 +101,48 @@ class SettingsServiceProvider extends ServiceProvider
             'contact_email_description' => db_config('contact.contact_email_description', 'Send me an email anytime'),
             'contact_phone_description' => db_config('contact.contact_phone_description', 'Call or text me'),
             'contact_address_description' => db_config('contact.contact_address_description', 'Located in'),
+
+            // About Page Settings
+            'about_hero_title' => db_config('about.about_hero_title', 'About Me'),
+            'about_hero_description' => db_config('about.about_hero_description', "I'm a passionate developer who loves creating digital experiences that make a difference. With years of experience in web development, I combine technical expertise with creative vision to build solutions that truly serve their users."),
+            'about_hero_button_work' => db_config('about.about_hero_button_work', 'View My Work'),
+            'about_hero_button_contact' => db_config('about.about_hero_button_contact', 'Get In Touch'),
+
+            // Journey section
+            'about_journey_title' => db_config('about.about_journey_title', 'My Journey'),
+            'about_journey_paragraph_1' => db_config('about.about_journey_paragraph_1', "My journey into web development began over 5 years ago when I discovered the power of code to bring ideas to life. What started as curiosity quickly became a passion, and I've been fortunate to work on projects ranging from small business websites to complex web applications."),
+            'about_journey_paragraph_2' => db_config('about.about_journey_paragraph_2', "I believe in the power of continuous learning and staying at the forefront of technology. Whether it's mastering a new framework, exploring design trends, or diving deep into user experience principles, I'm always pushing myself to grow and deliver better solutions."),
+            'about_journey_paragraph_3' => db_config('about.about_journey_paragraph_3', "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I'm passionate about clean code, thoughtful design, and creating digital experiences that users truly love."),
+
+            // Skills section
+            'about_skills_title' => db_config('about.about_skills_title', 'Skills & Expertise'),
+            'about_skill_1_title' => db_config('about.about_skill_1_title', 'Frontend Development'),
+            'about_skill_1_description' => db_config('about.about_skill_1_description', 'Creating responsive, interactive user interfaces with modern frameworks and vanilla JavaScript.'),
+            'about_skill_1_tags' => db_config('about.about_skill_1_tags', ['React', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'Alpine.js']),
+            'about_skill_2_title' => db_config('about.about_skill_2_title', 'Backend Development'),
+            'about_skill_2_description' => db_config('about.about_skill_2_description', 'Building robust server-side applications, APIs, and database architectures.'),
+            'about_skill_2_tags' => db_config('about.about_skill_2_tags', ['Laravel', 'Node.js', 'PostgreSQL', 'MySQL', 'Redis']),
+            'about_skill_3_title' => db_config('about.about_skill_3_title', 'Design & UX'),
+            'about_skill_3_description' => db_config('about.about_skill_3_description', 'Crafting intuitive user experiences with attention to detail and accessibility.'),
+            'about_skill_3_tags' => db_config('about.about_skill_3_tags', ['Figma', 'Adobe Creative Suite', 'Prototyping', 'User Research']),
+
+            // Values section
+            'about_values_title' => db_config('about.about_values_title', 'Values That Drive Me'),
+            'about_value_1_title' => db_config('about.about_value_1_title', 'Innovation'),
+            'about_value_1_description' => db_config('about.about_value_1_description', 'Constantly exploring new technologies and approaches to solve problems creatively.'),
+            'about_value_2_title' => db_config('about.about_value_2_title', 'Quality'),
+            'about_value_2_description' => db_config('about.about_value_2_description', 'Delivering exceptional work that exceeds expectations and stands the test of time.'),
+            'about_value_3_title' => db_config('about.about_value_3_title', 'Collaboration'),
+            'about_value_3_description' => db_config('about.about_value_3_description', 'Working together to achieve shared goals and create meaningful impact.'),
+            'about_value_4_title' => db_config('about.about_value_4_title', 'Learning'),
+            'about_value_4_description' => db_config('about.about_value_4_description', 'Embracing continuous growth and staying curious about new possibilities.'),
+
+            // CTA section
+            'about_cta_title' => db_config('about.about_cta_title', 'Let\'s Create Something'),
+            'about_cta_subtitle' => db_config('about.about_cta_subtitle', 'Amazing Together'),
+            'about_cta_description' => db_config('about.about_cta_description', 'Ready to bring your ideas to life? I\'d love to hear about your project and explore how we can work together.'),
+            'about_cta_button_contact' => db_config('about.about_cta_button_contact', 'Start a Conversation'),
+            'about_cta_button_work' => db_config('about.about_cta_button_work', 'View My Work'),
         ];
     }
 
