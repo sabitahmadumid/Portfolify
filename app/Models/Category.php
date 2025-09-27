@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Awcodes\Curator\Models\Media;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
-use Awcodes\Curator\Models\Media;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -40,8 +40,8 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
@@ -52,7 +52,25 @@ class Category extends Model
 
     public function publishedPosts(): HasMany
     {
-        return $this->hasMany(Post::class)->published();
+        return $this->hasMany(Post::class)
+            ->published()
+            ->orderBy('published_at', 'desc');
+    }
+
+    public function publishedPostsWithRelations(): HasMany
+    {
+        return $this->publishedPosts()
+            ->with(['user:id,name', 'featuredImage'])
+            ->select(['id', 'title', 'slug', 'excerpt', 'user_id', 'category_id', 'featured_image_id', 'published_at', 'views_count']);
+    }
+
+    public function getPostsCountAttribute(): int
+    {
+        return cache()->remember(
+            "category_{$this->id}_posts_count",
+            1800, // 30 minutes
+            fn () => $this->publishedPosts()->count()
+        );
     }
 
     public function featuredImage(): BelongsTo

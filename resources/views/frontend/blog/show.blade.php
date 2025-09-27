@@ -14,11 +14,13 @@
                 <li class="before:content-['/'] before:mx-2">
                     <a href="{{ route('blog.index') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Blog</a>
                 </li>
+                @if($post->category)
                 <li class="before:content-['/'] before:mx-2">
                     <a href="{{ route('blog.category', $post->category->slug) }}" class="hover:text-gray-700 dark:hover:text-gray-300">
                         {{ $post->category->name }}
                     </a>
                 </li>
+                @endif
                 <li class="before:content-['/'] before:mx-2 text-gray-900 dark:text-gray-100">{{ $post->title }}</li>
             </ol>
         </nav>
@@ -50,12 +52,16 @@
             <div class="flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                        <span class="text-white font-semibold">
-                            {{ substr($post->user->name, 0, 1) }}
-                        </span>
+                        @if($post->user && $post->user->profile_image)
+                            <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->name }}" class="w-full h-full rounded-full object-cover">
+                        @else
+                            <span class="text-white font-semibold">
+                                {{ $post->user ? substr($post->user->name, 0, 1) : 'A' }}
+                            </span>
+                        @endif
                     </div>
                     <div class="text-left">
-                        <p class="font-medium text-gray-900 dark:text-gray-100">{{ $post->user->name }}</p>
+                        <p class="font-medium text-gray-900 dark:text-gray-100">{{ $post->user->name ?? 'Anonymous' }}</p>
                         <p class="text-xs">Author</p>
                     </div>
                 </div>
@@ -78,10 +84,11 @@
         @if($post->featuredImage)
         <div class="mb-12">
             <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-2xl overflow-hidden shadow-lg">
-                <x-curator-image 
-                    :media="$post->featuredImage"
+                <img 
+                    src="{{ $post->featuredImage->url }}"
                     alt="{{ $post->title }}"
                     class="w-full h-full object-cover"
+                    loading="eager"
                 />
             </div>
         </div>
@@ -185,11 +192,21 @@
                         <div class="bg-white dark:bg-gray-950 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-800">
                             <!-- Featured Image -->
                             <div class="aspect-[16/10] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 overflow-hidden">
-                                <x-curator-image 
-                                    :media="$related->featuredImage"
-                                    alt="{{ $related->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                                @if($related->featuredImage)
+                                    <img 
+                                        src="{{ $related->featuredImage->url }}"
+                                        alt="{{ $related->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        loading="lazy"
+                                    />
+                                @else
+                                    <!-- Placeholder when no featured image -->
+                                    <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                @endif
                             </div>
                             
                             <!-- Content -->
@@ -247,13 +264,40 @@
 
 @push('scripts')
 <script>
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(function() {
-            showSuccessToast('Link copied to clipboard!');
-        }).catch(function(err) {
-            showErrorToast('Failed to copy link to clipboard');
-            console.error('Could not copy text: ', err);
-        });
-    }
+    window.copyToClipboard = function(text) {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    if (typeof showSuccessToast === 'function') {
+                        showSuccessToast('Link copied to clipboard!');
+                    }
+                }).catch(function(err) {
+                    if (typeof showErrorToast === 'function') {
+                        showErrorToast('Failed to copy link to clipboard');
+                    }
+                    console.error('Could not copy text: ', err);
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    if (typeof showSuccessToast === 'function') {
+                        showSuccessToast('Link copied to clipboard!');
+                    }
+                } catch (err) {
+                    if (typeof showErrorToast === 'function') {
+                        showErrorToast('Failed to copy link to clipboard');
+                    }
+                }
+                document.body.removeChild(textArea);
+            }
+        } catch (error) {
+            console.error('Error in copyToClipboard:', error);
+        }
+    };
 </script>
 @endpush

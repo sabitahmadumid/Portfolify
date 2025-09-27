@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Awcodes\Curator\Models\Media;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Builder;
-use Awcodes\Curator\Models\Media;
 
 class Post extends Model
 {
@@ -54,8 +54,8 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 
@@ -87,13 +87,18 @@ class Post extends Model
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true)
-                    ->whereNotNull('published_at')
-                    ->where('published_at', '<=', now());
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
     }
 
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
+    }
+
+    public function scopePopular(Builder $query): Builder
+    {
+        return $query->orderBy('views_count', 'desc');
     }
 
     public function getRouteKeyName(): string

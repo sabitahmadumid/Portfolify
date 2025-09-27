@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
 
 class Comment extends Model
 {
@@ -65,6 +65,16 @@ class Comment extends Model
     public function scopeParents(Builder $query): Builder
     {
         return $query->whereNull('parent_id');
+    }
+
+    public function scopeWithUser(Builder $query): Builder
+    {
+        return $query->with('user:id,name');
+    }
+
+    public function scopeRecent(Builder $query, int $days = 7): Builder
+    {
+        return $query->where('created_at', '>=', now()->subDays($days));
     }
 
     public function getAuthorDisplayNameAttribute(): string

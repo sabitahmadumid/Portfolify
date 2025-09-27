@@ -2,26 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Portfolio;
 use App\Models\Post;
-use App\Models\Category;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $featuredProjects = Portfolio::published()->featured()->latest()->take(3)->get();
-        $recentPosts = Post::published()->latest()->take(3)->get();
-        $categories = Category::active()->orderBy('sort_order')->get();
-        
-        return view('frontend.home', compact('featuredProjects', 'recentPosts', 'categories'));
+        // Cache homepage data for 15 minutes
+        $data = cache()->remember('homepage.data', 900, function () {
+            $featuredProjects = Portfolio::published()
+                ->featured()
+                ->with('featuredImage')
+                ->select(['id', 'title', 'slug', 'description', 'featured_image_id', 'created_at'])
+                ->latest()
+                ->take(3)
+                ->get();
+
+            $recentPosts = Post::published()
+                ->with(['featuredImage', 'category:id,name,slug', 'user:id,name'])
+                ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'user_id', 'featured_image_id', 'published_at'])
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+
+            $categories = Category::active()
+                ->select(['id', 'name', 'slug', 'color', 'icon'])
+                ->orderBy('sort_order')
+                ->get();
+
+            return compact('featuredProjects', 'recentPosts', 'categories');
+        });
+
+        return view('frontend.home', $data);
     }
-    
+
     public function about()
     {
         return view('frontend.about');
     }
-    
+
     public function contact()
     {
         return view('frontend.contact');

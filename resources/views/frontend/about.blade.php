@@ -40,14 +40,23 @@
             <div class="order-1 lg:order-2">
                 <div class="relative">
                     <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-3xl shadow-2xl overflow-hidden">
-                        <!-- Placeholder for profile image -->
-                        <div class="w-full h-full flex items-center justify-center">
-                            <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center">
-                                <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
+                        @if($globalSettings['profile_image'])
+                            <img 
+                                src="{{ $globalSettings['profile_image']->url }}"
+                                alt="Profile Image"
+                                class="w-full h-full object-cover"
+                                loading="eager"
+                            />
+                        @else
+                            <!-- Fallback placeholder when no profile image -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center">
+                                    <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                     
                     <!-- Floating elements -->

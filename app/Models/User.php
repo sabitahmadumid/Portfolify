@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +50,20 @@ class User extends Authenticatable
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function publishedPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->posts()->published();
+    }
+
+    public function getPublishedPostsCountAttribute(): int
+    {
+        return cache()->remember(
+            "user_{$this->id}_published_posts_count",
+            3600, // 1 hour
+            fn () => $this->publishedPosts()->count()
+        );
     }
 
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany

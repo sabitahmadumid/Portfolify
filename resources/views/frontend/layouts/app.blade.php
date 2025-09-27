@@ -41,7 +41,13 @@
     @endif
     @endif
 
-    <!-- Fonts -->
+    <!-- Favicon -->
+    @if($globalSettings['site_favicon_url'])
+        <link rel="icon" type="image/x-icon" href="{{ $globalSettings['site_favicon_url'] }}">
+        <link rel="apple-touch-icon" href="{{ $globalSettings['site_favicon_url'] }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    @endif    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -144,9 +150,18 @@
                     <!-- Logo -->
                     <div class="flex-shrink-0">
                         <a href="{{ route('home') }}" class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                <span class="text-white font-bold text-sm">{{ substr($globalSettings['site_name'], 0, 1) }}</span>
-                            </div>
+                            @if($globalSettings['site_logo'])
+                                <img 
+                                    src="{{ $globalSettings['site_logo']->url }}"
+                                    class="h-8 w-auto"
+                                    alt="{{ $globalSettings['site_name'] }}"
+                                    loading="eager"
+                                />
+                            @else
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">{{ substr($globalSettings['site_name'], 0, 1) }}</span>
+                                </div>
+                            @endif
                             <span class="font-bold text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                 {{ $globalSettings['site_name'] }}
                             </span>
@@ -301,37 +316,70 @@
 
     <script>
         // Theme toggle functionality
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.contains('dark');
+        window.toggleTheme = function() {
+            try {
+                const html = document.documentElement;
+                if (!html) return;
+                
+                const isDark = html.classList.contains('dark');
 
-            if (isDark) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                if (isDark) {
+                    html.classList.remove('dark');
+                    if (typeof(Storage) !== "undefined") {
+                        localStorage.setItem('theme', 'light');
+                    }
+                } else {
+                    html.classList.add('dark');
+                    if (typeof(Storage) !== "undefined") {
+                        localStorage.setItem('theme', 'dark');
+                    }
+                }
+            } catch (error) {
+                console.error('Error toggling theme:', error);
             }
-        }
+        };
 
         // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+        window.toggleMobileMenu = function() {
+            try {
+                const menu = document.getElementById('mobile-menu');
+                if (menu) {
+                    menu.classList.toggle('hidden');
+                }
+            } catch (error) {
+                console.error('Error toggling mobile menu:', error);
+            }
+        };
 
-        // Initialize theme
-        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (typeof(Storage) !== "undefined") {
+                    const storedTheme = localStorage.getItem('theme');
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    
+                    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+                        document.documentElement.classList.add('dark');
+                    }
+                }
+            } catch (error) {
+                console.error('Error initializing theme:', error);
+            }
+        });
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const menu = document.getElementById('mobile-menu');
-            const button = event.target.closest('button');
+            try {
+                const menu = document.getElementById('mobile-menu');
+                if (!menu) return;
+                
+                const button = event.target.closest('button');
 
-            if (!menu.contains(event.target) && !button) {
-                menu.classList.add('hidden');
+                if (!menu.contains(event.target) && !button) {
+                    menu.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Error handling outside click:', error);
             }
         });
     </script>
