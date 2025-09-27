@@ -140,52 +140,80 @@
             </p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             @foreach($recentPosts as $post)
-            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden card-hover">
+            <article class="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 border border-gray-100 dark:border-gray-700 animate-fade-in-up h-auto lg:h-[480px] flex flex-col" style="animation-delay: {{ $loop->index * 0.15 }}s">
                 <!-- Post Image -->
-                <div class="aspect-video overflow-hidden">
-                    <x-curator-image 
-                        :media="$post"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        :alt="$post->title"
-                    />
+                <div class="relative overflow-hidden flex-shrink-0">
+                    @if($post->featuredImage)
+                        <img 
+                            src="{{ $post->featuredImage->url }}"
+                            class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                            alt="{{ $post->title }}"
+                            loading="lazy"
+                        />
+                    @else
+                        <!-- Enhanced Placeholder -->
+                        <div class="w-full h-56 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center relative overflow-hidden">
+                            <!-- Animated background elements -->
+                            <div class="absolute inset-0 opacity-20">
+                                <div class="absolute top-0 left-0 w-20 h-20 bg-white rounded-full -translate-x-10 -translate-y-10 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform duration-1000"></div>
+                                <div class="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-x-16 translate-y-16 group-hover:-translate-x-8 group-hover:-translate-y-8 transition-transform duration-1000 delay-200"></div>
+                            </div>
+                            <div class="relative z-10 text-center">
+                                <svg class="w-16 h-16 text-white mb-2 mx-auto group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                                </svg>
+                                <p class="text-white text-sm font-medium opacity-90">{{ $post->category->name }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    <!-- Gradient overlay on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 
                 <!-- Post Content -->
-                <div class="p-6">
+                <div class="p-7 flex flex-col flex-grow">
                     <!-- Category & Date -->
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm rounded-full">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 text-blue-800 dark:text-blue-300 text-sm font-semibold rounded-xl border border-blue-200 dark:border-blue-800">
                             {{ $post->category->name }}
                         </span>
-                        <time class="text-sm text-gray-500 dark:text-gray-400">
-                            {{ $post->published_at->format('M d, Y') }}
+                        <time class="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                            {{ $post->published_at->format('M j, Y') }}
                         </time>
                     </div>
                     
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
+                        <a href="{{ route('blog.show', $post->slug) }}" class="hover:underline decoration-2 underline-offset-4">
+                            {{ $post->title }}
+                        </a>
                     </h3>
                     
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-grow">
                         {{ $post->excerpt }}
                     </p>
                     
-                    <!-- Author & Read More -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                <span class="text-white text-sm font-semibold">
-                                    {{ substr($post->user->name, 0, 1) }}
+                    <!-- Author & Read More - Fixed at bottom -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                                <span class="text-white font-bold">
+                                    {{ strtoupper(substr($post->user->name, 0, 1)) }}
                                 </span>
                             </div>
-                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $post->user->name }}</span>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $post->user->name }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">{{ $post->read_time ?? '5' }} min read</p>
+                            </div>
                         </div>
                         
                         <a href="{{ route('blog.show', $post->slug) }}" 
-                           class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-sm transition-colors">
-                            Read More →
+                           class="group inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <span>Read More</span>
+                            <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
                         </a>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ Route::prefix('portfolio')->name('portfolio.')->middleware(['cache.control', 'op
 });
 
 // Blog routes
-Route::prefix('blog')->name('blog.')->middleware(['cache.control', 'optimize.response'])->group(function () {
+Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/category/{category:slug}', [BlogController::class, 'category'])->name('category');
     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
