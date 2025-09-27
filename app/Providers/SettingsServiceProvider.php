@@ -51,6 +51,56 @@ class SettingsServiceProvider extends ServiceProvider
             'site_logo_dark_url' => $this->getMediaUrl(db_config('general.site_logo_dark')),
             'site_favicon_url' => $this->getMediaUrl(db_config('general.site_favicon')),
             'profile_image_url' => $this->getMediaUrl(db_config('general.profile_image')),
+
+            // Contact page settings
+            'contact_hero_title' => db_config('contact.contact_hero_title', "Let's Connect"),
+            'contact_hero_subtitle' => db_config('contact.contact_hero_subtitle', 'Ready to bring your vision to life?'),
+            'contact_hero_description' => db_config('contact.contact_hero_description', "I'd love to hear about your project and discuss how we can work together to create something amazing."),
+            'contact_form_title' => db_config('contact.contact_form_title', 'Send me a message'),
+            'contact_form_description' => db_config('contact.contact_form_description', "Fill out the form below and I'll get back to you as soon as possible."),
+            'contact_name_label' => db_config('contact.contact_name_label', 'Your Name'),
+            'contact_name_placeholder' => db_config('contact.contact_name_placeholder', 'John Doe'),
+            'contact_email_label' => db_config('contact.contact_email_label', 'Email Address'),
+            'contact_email_placeholder' => db_config('contact.contact_email_placeholder', 'john@example.com'),
+            'contact_phone_label' => db_config('contact.contact_phone_label', 'Phone Number (Optional)'),
+            'contact_phone_placeholder' => db_config('contact.contact_phone_placeholder', '+1 (555) 123-4567'),
+            'contact_subject_label' => db_config('contact.contact_subject_label', 'Subject'),
+            'contact_subject_placeholder' => db_config('contact.contact_subject_placeholder', 'Project inquiry'),
+            'contact_message_label' => db_config('contact.contact_message_label', 'Message'),
+            'contact_message_placeholder' => db_config('contact.contact_message_placeholder', 'Tell me about your project...'),
+            'contact_submit_button' => db_config('contact.contact_submit_button', 'Send Message'),
+            'contact_submitting_button' => db_config('contact.contact_submitting_button', 'Sending...'),
+
+            // Services section
+            'services_title' => db_config('contact.services_title', 'What I Can Help You With'),
+            'services_description' => db_config('contact.services_description', 'Here are some of the services I offer to help bring your ideas to life.'),
+            'service_1_title' => db_config('contact.service_1_title', 'Web Development'),
+            'service_1_description' => db_config('contact.service_1_description', 'Custom websites and web applications built with modern technologies.'),
+            'service_2_title' => db_config('contact.service_2_title', 'UI/UX Design'),
+            'service_2_description' => db_config('contact.service_2_description', 'Beautiful, user-friendly designs that convert visitors into customers.'),
+            'service_3_title' => db_config('contact.service_3_title', 'Consulting'),
+            'service_3_description' => db_config('contact.service_3_description', 'Strategic guidance to help you make the right technology decisions.'),
+            'service_4_title' => db_config('contact.service_4_title', 'Maintenance'),
+            'service_4_description' => db_config('contact.service_4_description', 'Ongoing support and updates to keep your website running smoothly.'),
+
+            // FAQ section
+            'faq_title' => db_config('contact.faq_title', 'Frequently Asked Questions'),
+            'faq_description' => db_config('contact.faq_description', 'Common questions about working together.'),
+            'faq_1_question' => db_config('contact.faq_1_question', 'What is your typical project timeline?'),
+            'faq_1_answer' => db_config('contact.faq_1_answer', "Project timelines vary depending on scope and complexity. A simple website might take 2-4 weeks, while a complex web application could take 2-3 months. I'll provide a detailed timeline after our initial consultation."),
+            'faq_2_question' => db_config('contact.faq_2_question', 'How do you handle project communication?'),
+            'faq_2_answer' => db_config('contact.faq_2_answer', "I believe in transparent, regular communication. We'll have weekly check-ins via your preferred method (email, Slack, or video calls), and you'll have access to a project dashboard to track progress."),
+            'faq_3_question' => db_config('contact.faq_3_question', 'What is your pricing structure?'),
+            'faq_3_answer' => db_config('contact.faq_3_answer', 'I offer both fixed-price projects and hourly consulting. For most projects, I prefer fixed pricing as it provides clarity for both parties. Rates vary based on project complexity and timeline.'),
+            'faq_4_question' => db_config('contact.faq_4_question', 'Do you provide ongoing support?'),
+            'faq_4_answer' => db_config('contact.faq_4_answer', 'Yes! I offer various support packages including bug fixes, security updates, content updates, and feature enhancements. We can discuss the best support plan for your needs.'),
+
+            // Contact info section
+            'contact_info_title' => db_config('contact.contact_info_title', 'Other Ways to Reach Me'),
+            'contact_info_description' => db_config('contact.contact_info_description', 'Prefer a different way to get in touch? Here are some alternatives.'),
+            'contact_email_description' => db_config('contact.contact_email_description', 'Send me an email anytime'),
+            'contact_phone_description' => db_config('contact.contact_phone_description', 'Call or text me'),
+            'contact_address_description' => db_config('contact.contact_address_description', 'Located in'),
         ];
     }
 

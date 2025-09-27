@@ -35,3 +35,8 @@ Route::prefix('blog')->name('blog.')->middleware(['cache.control', 'optimize.res
 // Comment routes
 Route::post('/blog/{post:slug}/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+// Contact routes
+Route::post('/contact', [\App\Http\Controllers\ContactMessageController::class, 'store'])
+    ->middleware(['throttle:contact'])
+    ->name('contact.store');

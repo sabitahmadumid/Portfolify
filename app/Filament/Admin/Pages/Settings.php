@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\DB;
 use Inerba\DbConfig\AbstractPageSettings;
@@ -54,6 +55,7 @@ class Settings extends AbstractPageSettings
         $generalSettings = $this->getSettingsForGroup('general');
         $blogSettings = $this->getSettingsForGroup('blog');
         $seoSettings = $this->getSettingsForGroup('seo');
+        $contactSettings = $this->getSettingsForGroup('contact');
 
         return [
             // General/Site settings
@@ -109,6 +111,56 @@ class Settings extends AbstractPageSettings
             'google_analytics_id' => $seoSettings['google_analytics_id'] ?? '',
             'custom_head_code' => $seoSettings['custom_head_code'] ?? '',
             'custom_body_code' => $seoSettings['custom_body_code'] ?? '',
+
+            // Contact page settings
+            'contact_hero_title' => $contactSettings['contact_hero_title'] ?? "Let's Connect",
+            'contact_hero_subtitle' => $contactSettings['contact_hero_subtitle'] ?? 'Ready to bring your vision to life?',
+            'contact_hero_description' => $contactSettings['contact_hero_description'] ?? "I'd love to hear about your project and discuss how we can work together to create something amazing.",
+            'contact_form_title' => $contactSettings['contact_form_title'] ?? 'Send me a message',
+            'contact_form_description' => $contactSettings['contact_form_description'] ?? "Fill out the form below and I'll get back to you as soon as possible.",
+            'contact_name_label' => $contactSettings['contact_name_label'] ?? 'Your Name',
+            'contact_name_placeholder' => $contactSettings['contact_name_placeholder'] ?? 'John Doe',
+            'contact_email_label' => $contactSettings['contact_email_label'] ?? 'Email Address',
+            'contact_email_placeholder' => $contactSettings['contact_email_placeholder'] ?? 'john@example.com',
+            'contact_phone_label' => $contactSettings['contact_phone_label'] ?? 'Phone Number (Optional)',
+            'contact_phone_placeholder' => $contactSettings['contact_phone_placeholder'] ?? '+1 (555) 123-4567',
+            'contact_subject_label' => $contactSettings['contact_subject_label'] ?? 'Subject',
+            'contact_subject_placeholder' => $contactSettings['contact_subject_placeholder'] ?? 'Project inquiry',
+            'contact_message_label' => $contactSettings['contact_message_label'] ?? 'Message',
+            'contact_message_placeholder' => $contactSettings['contact_message_placeholder'] ?? 'Tell me about your project...',
+            'contact_submit_button' => $contactSettings['contact_submit_button'] ?? 'Send Message',
+            'contact_submitting_button' => $contactSettings['contact_submitting_button'] ?? 'Sending...',
+
+            // Services section
+            'services_title' => $contactSettings['services_title'] ?? 'What I Can Help You With',
+            'services_description' => $contactSettings['services_description'] ?? 'Here are some of the services I offer to help bring your ideas to life.',
+            'service_1_title' => $contactSettings['service_1_title'] ?? 'Web Development',
+            'service_1_description' => $contactSettings['service_1_description'] ?? 'Custom websites and web applications built with modern technologies.',
+            'service_2_title' => $contactSettings['service_2_title'] ?? 'UI/UX Design',
+            'service_2_description' => $contactSettings['service_2_description'] ?? 'Beautiful, user-friendly designs that convert visitors into customers.',
+            'service_3_title' => $contactSettings['service_3_title'] ?? 'Consulting',
+            'service_3_description' => $contactSettings['service_3_description'] ?? 'Strategic guidance to help you make the right technology decisions.',
+            'service_4_title' => $contactSettings['service_4_title'] ?? 'Maintenance',
+            'service_4_description' => $contactSettings['service_4_description'] ?? 'Ongoing support and updates to keep your website running smoothly.',
+
+            // FAQ section
+            'faq_title' => $contactSettings['faq_title'] ?? 'Frequently Asked Questions',
+            'faq_description' => $contactSettings['faq_description'] ?? 'Common questions about working together.',
+            'faq_1_question' => $contactSettings['faq_1_question'] ?? 'What is your typical project timeline?',
+            'faq_1_answer' => $contactSettings['faq_1_answer'] ?? "Project timelines vary depending on scope and complexity. A simple website might take 2-4 weeks, while a complex web application could take 2-3 months. I'll provide a detailed timeline after our initial consultation.",
+            'faq_2_question' => $contactSettings['faq_2_question'] ?? 'How do you handle project communication?',
+            'faq_2_answer' => $contactSettings['faq_2_answer'] ?? "I believe in transparent, regular communication. We'll have weekly check-ins via your preferred method (email, Slack, or video calls), and you'll have access to a project dashboard to track progress.",
+            'faq_3_question' => $contactSettings['faq_3_question'] ?? 'What is your pricing structure?',
+            'faq_3_answer' => $contactSettings['faq_3_answer'] ?? 'I offer both fixed-price projects and hourly consulting. For most projects, I prefer fixed pricing as it provides clarity for both parties. Rates vary based on project complexity and timeline.',
+            'faq_4_question' => $contactSettings['faq_4_question'] ?? 'Do you provide ongoing support?',
+            'faq_4_answer' => $contactSettings['faq_4_answer'] ?? 'Yes! I offer various support packages including bug fixes, security updates, content updates, and feature enhancements. We can discuss the best support plan for your needs.',
+
+            // Contact info section
+            'contact_info_title' => $contactSettings['contact_info_title'] ?? 'Other Ways to Reach Me',
+            'contact_info_description' => $contactSettings['contact_info_description'] ?? 'Prefer a different way to get in touch? Here are some alternatives.',
+            'contact_email_description' => $contactSettings['contact_email_description'] ?? 'Send me an email anytime',
+            'contact_phone_description' => $contactSettings['contact_phone_description'] ?? 'Call or text me',
+            'contact_address_description' => $contactSettings['contact_address_description'] ?? 'Located in',
         ];
     }
 
@@ -173,6 +225,52 @@ class Settings extends AbstractPageSettings
             'google_analytics_id' => $data['google_analytics_id'] ?? null,
             'custom_head_code' => $data['custom_head_code'] ?? null,
             'custom_body_code' => $data['custom_body_code'] ?? null,
+        ]);
+
+        // Save contact settings
+        $this->saveToGroup('contact', [
+            'contact_hero_title' => $data['contact_hero_title'] ?? null,
+            'contact_hero_subtitle' => $data['contact_hero_subtitle'] ?? null,
+            'contact_hero_description' => $data['contact_hero_description'] ?? null,
+            'contact_form_title' => $data['contact_form_title'] ?? null,
+            'contact_form_description' => $data['contact_form_description'] ?? null,
+            'contact_name_label' => $data['contact_name_label'] ?? null,
+            'contact_name_placeholder' => $data['contact_name_placeholder'] ?? null,
+            'contact_email_label' => $data['contact_email_label'] ?? null,
+            'contact_email_placeholder' => $data['contact_email_placeholder'] ?? null,
+            'contact_phone_label' => $data['contact_phone_label'] ?? null,
+            'contact_phone_placeholder' => $data['contact_phone_placeholder'] ?? null,
+            'contact_subject_label' => $data['contact_subject_label'] ?? null,
+            'contact_subject_placeholder' => $data['contact_subject_placeholder'] ?? null,
+            'contact_message_label' => $data['contact_message_label'] ?? null,
+            'contact_message_placeholder' => $data['contact_message_placeholder'] ?? null,
+            'contact_submit_button' => $data['contact_submit_button'] ?? null,
+            'contact_submitting_button' => $data['contact_submitting_button'] ?? null,
+            'services_title' => $data['services_title'] ?? null,
+            'services_description' => $data['services_description'] ?? null,
+            'service_1_title' => $data['service_1_title'] ?? null,
+            'service_1_description' => $data['service_1_description'] ?? null,
+            'service_2_title' => $data['service_2_title'] ?? null,
+            'service_2_description' => $data['service_2_description'] ?? null,
+            'service_3_title' => $data['service_3_title'] ?? null,
+            'service_3_description' => $data['service_3_description'] ?? null,
+            'service_4_title' => $data['service_4_title'] ?? null,
+            'service_4_description' => $data['service_4_description'] ?? null,
+            'faq_title' => $data['faq_title'] ?? null,
+            'faq_description' => $data['faq_description'] ?? null,
+            'faq_1_question' => $data['faq_1_question'] ?? null,
+            'faq_1_answer' => $data['faq_1_answer'] ?? null,
+            'faq_2_question' => $data['faq_2_question'] ?? null,
+            'faq_2_answer' => $data['faq_2_answer'] ?? null,
+            'faq_3_question' => $data['faq_3_question'] ?? null,
+            'faq_3_answer' => $data['faq_3_answer'] ?? null,
+            'faq_4_question' => $data['faq_4_question'] ?? null,
+            'faq_4_answer' => $data['faq_4_answer'] ?? null,
+            'contact_info_title' => $data['contact_info_title'] ?? null,
+            'contact_info_description' => $data['contact_info_description'] ?? null,
+            'contact_email_description' => $data['contact_email_description'] ?? null,
+            'contact_phone_description' => $data['contact_phone_description'] ?? null,
+            'contact_address_description' => $data['contact_address_description'] ?? null,
         ]);
 
         \Filament\Notifications\Notification::make()
@@ -500,6 +598,217 @@ class Settings extends AbstractPageSettings
                                             ->helperText('Custom HTML/JS code to insert before </body>')
                                             ->columnSpanFull(),
                                     ]),
+                            ]),
+
+                        Tab::make('Contact')
+                            ->icon('heroicon-o-envelope')
+                            ->schema([
+                                Section::make('Hero Section')
+                                    ->description('Contact page hero content')
+                                    ->schema([
+                                        TextInput::make('contact_hero_title')
+                                            ->label('Hero Title')
+                                            ->placeholder("Let's Connect")
+                                            ->required(),
+
+                                        TextInput::make('contact_hero_subtitle')
+                                            ->label('Hero Subtitle')
+                                            ->placeholder('Ready to bring your vision to life?'),
+
+                                        Textarea::make('contact_hero_description')
+                                            ->label('Hero Description')
+                                            ->rows(3)
+                                            ->placeholder("I'd love to hear about your project..."),
+                                    ])
+                                    ->columns(1),
+
+                                Section::make('Contact Form')
+                                    ->description('Contact form labels and placeholders')
+                                    ->schema([
+                                        TextInput::make('contact_form_title')
+                                            ->label('Form Title')
+                                            ->placeholder('Send me a message'),
+
+                                        Textarea::make('contact_form_description')
+                                            ->label('Form Description')
+                                            ->rows(2)
+                                            ->placeholder('Fill out the form below...'),
+
+                                        TextInput::make('contact_name_label')
+                                            ->label('Name Field Label')
+                                            ->placeholder('Your Name'),
+
+                                        TextInput::make('contact_name_placeholder')
+                                            ->label('Name Field Placeholder')
+                                            ->placeholder('John Doe'),
+
+                                        TextInput::make('contact_email_label')
+                                            ->label('Email Field Label')
+                                            ->placeholder('Email Address'),
+
+                                        TextInput::make('contact_email_placeholder')
+                                            ->label('Email Field Placeholder')
+                                            ->placeholder('john@example.com'),
+
+                                        TextInput::make('contact_phone_label')
+                                            ->label('Phone Field Label')
+                                            ->placeholder('Phone Number (Optional)'),
+
+                                        TextInput::make('contact_phone_placeholder')
+                                            ->label('Phone Field Placeholder')
+                                            ->placeholder('+1 (555) 123-4567'),
+
+                                        TextInput::make('contact_subject_label')
+                                            ->label('Subject Field Label')
+                                            ->placeholder('Subject'),
+
+                                        TextInput::make('contact_subject_placeholder')
+                                            ->label('Subject Field Placeholder')
+                                            ->placeholder('Project inquiry'),
+
+                                        TextInput::make('contact_message_label')
+                                            ->label('Message Field Label')
+                                            ->placeholder('Message'),
+
+                                        TextInput::make('contact_message_placeholder')
+                                            ->label('Message Field Placeholder')
+                                            ->placeholder('Tell me about your project...'),
+
+                                        TextInput::make('contact_submit_button')
+                                            ->label('Submit Button Text')
+                                            ->placeholder('Send Message'),
+
+                                        TextInput::make('contact_submitting_button')
+                                            ->label('Submitting Button Text')
+                                            ->placeholder('Sending...'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('Services Section')
+                                    ->description('Services offered section')
+                                    ->schema([
+                                        TextInput::make('services_title')
+                                            ->label('Section Title')
+                                            ->placeholder('What I Can Help You With'),
+
+                                        Textarea::make('services_description')
+                                            ->label('Section Description')
+                                            ->rows(2)
+                                            ->placeholder('Here are some of the services...'),
+
+                                        TextInput::make('service_1_title')
+                                            ->label('Service 1 Title')
+                                            ->placeholder('Web Development'),
+
+                                        Textarea::make('service_1_description')
+                                            ->label('Service 1 Description')
+                                            ->rows(2)
+                                            ->placeholder('Custom websites and web applications...'),
+
+                                        TextInput::make('service_2_title')
+                                            ->label('Service 2 Title')
+                                            ->placeholder('UI/UX Design'),
+
+                                        Textarea::make('service_2_description')
+                                            ->label('Service 2 Description')
+                                            ->rows(2)
+                                            ->placeholder('Beautiful, user-friendly designs...'),
+
+                                        TextInput::make('service_3_title')
+                                            ->label('Service 3 Title')
+                                            ->placeholder('Consulting'),
+
+                                        Textarea::make('service_3_description')
+                                            ->label('Service 3 Description')
+                                            ->rows(2)
+                                            ->placeholder('Strategic guidance to help you...'),
+
+                                        TextInput::make('service_4_title')
+                                            ->label('Service 4 Title')
+                                            ->placeholder('Maintenance'),
+
+                                        Textarea::make('service_4_description')
+                                            ->label('Service 4 Description')
+                                            ->rows(2)
+                                            ->placeholder('Ongoing support and updates...'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('FAQ Section')
+                                    ->description('Frequently asked questions')
+                                    ->schema([
+                                        TextInput::make('faq_title')
+                                            ->label('FAQ Section Title')
+                                            ->placeholder('Frequently Asked Questions'),
+
+                                        Textarea::make('faq_description')
+                                            ->label('FAQ Section Description')
+                                            ->rows(2)
+                                            ->placeholder('Common questions about working together.'),
+
+                                        TextInput::make('faq_1_question')
+                                            ->label('FAQ 1 Question')
+                                            ->placeholder('What is your typical project timeline?'),
+
+                                        Textarea::make('faq_1_answer')
+                                            ->label('FAQ 1 Answer')
+                                            ->rows(3)
+                                            ->placeholder('Project timelines vary depending on scope...'),
+
+                                        TextInput::make('faq_2_question')
+                                            ->label('FAQ 2 Question')
+                                            ->placeholder('How do you handle project communication?'),
+
+                                        Textarea::make('faq_2_answer')
+                                            ->label('FAQ 2 Answer')
+                                            ->rows(3)
+                                            ->placeholder('I believe in transparent, regular communication...'),
+
+                                        TextInput::make('faq_3_question')
+                                            ->label('FAQ 3 Question')
+                                            ->placeholder('What is your pricing structure?'),
+
+                                        Textarea::make('faq_3_answer')
+                                            ->label('FAQ 3 Answer')
+                                            ->rows(3)
+                                            ->placeholder('I offer both fixed-price projects and hourly consulting...'),
+
+                                        TextInput::make('faq_4_question')
+                                            ->label('FAQ 4 Question')
+                                            ->placeholder('Do you provide ongoing support?'),
+
+                                        Textarea::make('faq_4_answer')
+                                            ->label('FAQ 4 Answer')
+                                            ->rows(3)
+                                            ->placeholder('Yes! I offer various support packages...'),
+                                    ])
+                                    ->columns(1),
+
+                                Section::make('Contact Information')
+                                    ->description('Contact information section')
+                                    ->schema([
+                                        TextInput::make('contact_info_title')
+                                            ->label('Section Title')
+                                            ->placeholder('Other Ways to Reach Me'),
+
+                                        Textarea::make('contact_info_description')
+                                            ->label('Section Description')
+                                            ->rows(2)
+                                            ->placeholder('Prefer a different way to get in touch?'),
+
+                                        TextInput::make('contact_email_description')
+                                            ->label('Email Description')
+                                            ->placeholder('Send me an email anytime'),
+
+                                        TextInput::make('contact_phone_description')
+                                            ->label('Phone Description')
+                                            ->placeholder('Call or text me'),
+
+                                        TextInput::make('contact_address_description')
+                                            ->label('Address Description')
+                                            ->placeholder('Located in'),
+                                    ])
+                                    ->columns(2),
                             ]),
                     ])
                     ->columnSpanFull()

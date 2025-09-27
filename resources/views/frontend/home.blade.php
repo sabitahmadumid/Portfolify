@@ -43,7 +43,7 @@
         </div>
         
         <!-- Scroll indicator -->
-        <div class="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div class="absolute bottom-৪ sm:bottom left-1/2 transform -translate-x-1/2 animate-bounce">
             <div class="p-2">
                 <svg class="w-6 h-6 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>

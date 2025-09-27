@@ -36,6 +36,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->profile()
             ->sidebarCollapsibleOnDesktop()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->navigationGroups([
                 'Content Management',
                 'Portfolio',

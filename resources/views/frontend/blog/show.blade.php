@@ -17,7 +17,7 @@
                 @if($post->category)
                 <li class="before:content-['/'] before:mx-2">
                     <a href="{{ route('blog.category', $post->category->slug) }}" class="hover:text-gray-700 dark:hover:text-gray-300">
-                        {{ $post->category->name }}
+                        {{ $post->category->name ?? 'Uncategorized' }}
                     </a>
                 </li>
                 @endif
@@ -28,9 +28,11 @@
         <!-- Article Meta -->
         <div class="mb-8 text-center">
             <div class="flex items-center justify-center space-x-4 mb-4">
+                @if($post->category)
                 <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm rounded-full">
                     {{ $post->category->name }}
                 </span>
+                @endif
                 @if($post->is_featured)
                 <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 text-sm rounded-full">
                     Featured
@@ -100,7 +102,7 @@
         </div>
 
         <!-- Gallery Images -->
-        @if($post->gallery_images && count($post->gallery_images) > 0)
+        @if(isset($post->gallery_images) && count($post->gallery_images) > 0)
         <div class="mb-12">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">Gallery</h3>
             <x-image-gallery :images="$post->gallery_images" />
@@ -108,7 +110,7 @@
         @endif
 
         <!-- Tags -->
-        @if($post->tags && count($post->tags) > 0)
+        @if(isset($post->tags) && count($post->tags) > 0)
         <div class="mb-12 pt-8 border-t border-gray-200 dark:border-gray-800">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Tags</h3>
             <div class="flex flex-wrap gap-2">
@@ -172,7 +174,7 @@
                 Related Articles
             </h2>
             <p class="text-gray-600 dark:text-gray-400">
-                More posts from the {{ $post->category->name }} category
+                More posts from the {{ $post->category->name ?? 'same' }} category
             </p>
         </div>
         
@@ -212,11 +214,13 @@
                             <!-- Content -->
                             <div class="p-5">
                                 <!-- Category Badge -->
+                                @if($related->category)
                                 <div class="mb-3">
                                     <span class="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm rounded-full font-medium">
                                         {{ $related->category->name }}
                                     </span>
                                 </div>
+                                @endif
                                 
                                 <!-- Title -->
                                 <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-3 line-clamp-2 text-lg leading-6 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -235,10 +239,10 @@
                                     <div class="flex items-center space-x-2">
                                         <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                             <span class="text-white text-xs font-semibold">
-                                                {{ substr($related->user->name, 0, 1) }}
+                                                {{ $related->user ? substr($related->user->name, 0, 1) : 'A' }}
                                             </span>
                                         </div>
-                                        <span>{{ $related->user->name }}</span>
+                                        <span>{{ $related->user->name ?? 'Anonymous' }}</span>
                                     </div>
                                     
                                     <time>{{ $related->published_at->format('M d, Y') }}</time>
@@ -252,11 +256,13 @@
         </div>
         
         <!-- View All Button -->
+        @if($post->category)
         <div class="text-center">
             <a href="{{ route('blog.category', $post->category->slug) }}" class="btn-secondary">
                 View All {{ $post->category->name }} Posts
             </a>
         </div>
+        @endif
     </div>
 </section>
 @endif

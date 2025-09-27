@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            @if($errors->any())
+            @if(isset($errors) && $errors->any())
                 <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                     <ul class="text-red-800 dark:text-red-300 space-y-1">
                         @foreach($errors->all() as $error)
@@ -142,3 +142,66 @@
     </div>
 </section>
 
+@push('scripts')
+<script>
+function toggleReplyForm(commentId) {
+    try {
+        const replyForm = document.getElementById('reply-form-' + commentId);
+        if (replyForm) {
+            if (replyForm.classList.contains('hidden')) {
+                // Hide all other reply forms first
+                document.querySelectorAll('[id^="reply-form-"]').forEach(form => {
+                    if (form && form.classList) {
+                        form.classList.add('hidden');
+                    }
+                });
+                // Show this reply form
+                replyForm.classList.remove('hidden');
+                // Focus on the first input with a small delay to ensure visibility
+                setTimeout(() => {
+                    const firstInput = replyForm.querySelector('input[name="author_name"]');
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }, 100);
+            } else {
+                // Hide this reply form
+                replyForm.classList.add('hidden');
+            }
+        }
+    } catch (error) {
+        console.error('Error toggling reply form:', error);
+    }
+}
+
+function updateCharCount(textarea) {
+    const maxLength = textarea.getAttribute('maxlength') || 1000;
+    const currentLength = textarea.value.length;
+    const charCountElement = document.getElementById('char-count');
+    
+    if (charCountElement) {
+        charCountElement.textContent = currentLength + '/' + maxLength;
+        
+        // Update color based on character count
+        if (currentLength > maxLength * 0.9) {
+            charCountElement.classList.add('text-red-500');
+            charCountElement.classList.remove('text-gray-400', 'text-yellow-500');
+        } else if (currentLength > maxLength * 0.7) {
+            charCountElement.classList.add('text-yellow-500');
+            charCountElement.classList.remove('text-gray-400', 'text-red-500');
+        } else {
+            charCountElement.classList.add('text-gray-400');
+            charCountElement.classList.remove('text-yellow-500', 'text-red-500');
+        }
+    }
+}
+
+// Initialize character count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.querySelector('textarea[oninput="updateCharCount(this)"]');
+    if (textarea) {
+        updateCharCount(textarea);
+    }
+});
+</script>
+@endpush
