@@ -19,12 +19,12 @@ class CommentFactory extends Factory
     {
         return [
             'post_id' => Post::factory(),
-            'author_name' => \fake()->name(),
-            'author_email' => \fake()->email(),
-            'content' => \fake()->paragraphs(2, true),
-            'is_approved' => \fake()->boolean(80),
-            'ip_address' => \fake()->ipv4(),
-            'user_agent' => \fake()->userAgent(),
+            'author_name' => $this->faker->name(),
+            'author_email' => $this->faker->email(),
+            'content' => $this->faker->paragraphs(2, true),
+            'is_approved' => $this->faker->boolean(80),
+            'ip_address' => $this->faker->ipv4(),
+            'user_agent' => $this->faker->userAgent(),
         ];
     }
 

@@ -19,12 +19,12 @@ class CategoryFactory extends Factory
         $colors = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#6366F1', '#EC4899'];
 
         return [
-            'name' => \fake()->words(2, true),
-            'description' => \fake()->sentence(),
-            'color' => \fake()->randomElement($colors),
+            'name' => $this->faker->words(2, true),
+            'description' => $this->faker->sentence(),
+            'color' => $this->faker->randomElement($colors),
             'is_active' => true,
-            'meta_title' => \fake()->optional()->words(4, true),
-            'meta_description' => \fake()->optional()->sentence(),
+            'meta_title' => $this->faker->optional()->words(4, true),
+            'meta_description' => $this->faker->optional()->sentence(),
         ];
     }
 
