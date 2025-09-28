@@ -18,24 +18,24 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $publishedAt = $this->faker->boolean(80) ? $this->faker->dateTimeBetween('-1 year') : null;
+        $publishedAt = fake()->boolean(80) ? fake()->dateTimeBetween('-1 year') : null;
 
         return [
-            'title' => $this->faker->sentence(6),
-            'excerpt' => $this->faker->paragraph(2),
-            'content' => $this->faker->paragraphs(8, true),
+            'title' => fake()->sentence(6),
+            'excerpt' => fake()->paragraph(2),
+            'content' => fake()->paragraphs(8, true),
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'is_published' => ! is_null($publishedAt),
             'is_featured' => false,
             'published_at' => $publishedAt,
-            'allow_comments' => $this->faker->boolean(90),
-            'meta_title' => $this->faker->optional()->sentence(4),
-            'meta_description' => $this->faker->optional()->paragraph(),
-            'meta_keywords' => $this->faker->optional()->words(5),
-            'tags' => $this->faker->optional()->words(3),
-            'reading_time' => $this->faker->numberBetween(2, 15),
-            'views_count' => $this->faker->numberBetween(0, 1000),
+            'allow_comments' => fake()->boolean(90),
+            'meta_title' => fake()->optional()->sentence(4),
+            'meta_description' => fake()->optional()->paragraph(),
+            'meta_keywords' => fake()->optional()->words(5),
+            'tags' => fake()->optional()->words(3),
+            'reading_time' => fake()->numberBetween(2, 15),
+            'views_count' => fake()->numberBetween(0, 1000),
         ];
     }
 
@@ -47,7 +47,7 @@ class PostFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'is_featured' => true,
             'is_published' => true,
-            'published_at' => $this->faker->dateTimeBetween('-6 months'),
+            'published_at' => fake()->dateTimeBetween('-6 months'),
         ]);
     }
 
@@ -69,7 +69,7 @@ class PostFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_published' => true,
-            'published_at' => $this->faker->dateTimeBetween('-1 year'),
+            'published_at' => fake()->dateTimeBetween('-1 year'),
         ]);
     }
 }

@@ -26,20 +26,20 @@ class PortfolioFactory extends Factory
         ];
 
         return [
-            'title' => $this->faker->words(3, true),
-            'description' => $this->faker->sentences(2, true),
-            'content' => $this->faker->paragraphs(5, true),
-            'client' => $this->faker->optional()->company(),
-            'project_url' => $this->faker->optional()->url(),
-            'github_url' => $this->faker->optional()->url(),
-            'technologies' => $this->faker->randomElement($technologies),
-            'project_date' => $this->faker->dateTimeBetween('-2 years'),
+            'title' => fake()->words(3, true),
+            'description' => fake()->sentences(2, true),
+            'content' => fake()->paragraphs(5, true),
+            'client' => fake()->optional()->company(),
+            'project_url' => fake()->optional()->url(),
+            'github_url' => fake()->optional()->url(),
+            'technologies' => fake()->randomElement($technologies),
+            'project_date' => fake()->dateTimeBetween('-2 years'),
             'is_featured' => false,
             'is_published' => true,
-            'meta_title' => $this->faker->optional()->words(5, true),
-            'meta_description' => $this->faker->optional()->sentence(),
-            'meta_keywords' => $this->faker->optional()->words(5),
-            'sort_order' => $this->faker->numberBetween(0, 100),
+            'meta_title' => fake()->optional()->words(5, true),
+            'meta_description' => fake()->optional()->sentence(),
+            'meta_keywords' => fake()->optional()->words(5),
+            'sort_order' => fake()->numberBetween(0, 100),
         ];
     }
 
@@ -50,7 +50,7 @@ class PortfolioFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_featured' => true,
-            'sort_order' => $this->faker->numberBetween(1, 10),
+            'sort_order' => fake()->numberBetween(1, 10),
         ]);
     }
 
