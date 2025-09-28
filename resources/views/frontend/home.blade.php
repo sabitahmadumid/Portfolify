@@ -142,26 +142,26 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             @foreach($recentPosts as $post)
-            <article class="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 border border-gray-100 dark:border-gray-700 animate-fade-in-up h-auto lg:h-[480px] flex flex-col" style="animation-delay: {{ $loop->index * 0.15 }}s">
+            <article class="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 border border-gray-100 dark:border-gray-700 animate-fade-in-up h-auto lg:h-[520px] flex flex-col" style="animation-delay: {{ $loop->index * 0.15 }}s">
                 <!-- Post Image -->
                 <div class="relative overflow-hidden flex-shrink-0">
                     @if($post->featuredImage)
                         <img 
                             src="{{ $post->featuredImage->url }}"
-                            class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                             alt="{{ $post->title }}"
                             loading="lazy"
                         />
                     @else
                         <!-- Enhanced Placeholder -->
-                        <div class="w-full h-56 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center relative overflow-hidden">
+                        <div class="w-full h-48 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center relative overflow-hidden">
                             <!-- Animated background elements -->
                             <div class="absolute inset-0 opacity-20">
                                 <div class="absolute top-0 left-0 w-20 h-20 bg-white rounded-full -translate-x-10 -translate-y-10 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform duration-1000"></div>
                                 <div class="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-x-16 translate-y-16 group-hover:-translate-x-8 group-hover:-translate-y-8 transition-transform duration-1000 delay-200"></div>
                             </div>
                             <div class="relative z-10 text-center">
-                                <svg class="w-16 h-16 text-white mb-2 mx-auto group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-14 h-14 text-white mb-2 mx-auto group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                                 </svg>
                                 <p class="text-white text-sm font-medium opacity-90">{{ $post->category->name }}</p>
@@ -173,10 +173,10 @@
                 </div>
                 
                 <!-- Post Content -->
-                <div class="p-7 flex flex-col flex-grow">
+                <div class="p-6 flex flex-col flex-grow">
                     <!-- Category & Date -->
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 text-blue-800 dark:text-blue-300 text-sm font-semibold rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 text-blue-800 dark:text-blue-300 text-sm font-semibold rounded-xl border border-blue-200 dark:border-blue-800">
                             {{ $post->category->name }}
                         </span>
                         <time class="text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -184,21 +184,21 @@
                         </time>
                     </div>
                     
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
                         <a href="{{ route('blog.show', $post->slug) }}" class="hover:underline decoration-2 underline-offset-4">
                             {{ $post->title }}
                         </a>
                     </h3>
                     
-                    <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed flex-grow">
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed flex-grow text-sm">
                         {{ $post->excerpt }}
                     </p>
                     
                     <!-- Author & Read More - Fixed at bottom -->
                     <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                                <span class="text-white font-bold">
+                            <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                                <span class="text-white font-bold text-sm">
                                     {{ strtoupper(substr($post->user->name, 0, 1)) }}
                                 </span>
                             </div>
