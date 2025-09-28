@@ -24,4 +24,10 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
+    public function down()
+    {
+        $tableName = config('db-config.table_name', 'db_config');
+        Schema::dropIfExists($tableName);
+    }
 };
