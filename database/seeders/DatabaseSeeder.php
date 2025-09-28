@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Admin User',
                 'email' => 'admin@portfolify.com',
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
             ]
         );
 
