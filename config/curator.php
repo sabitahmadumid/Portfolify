@@ -21,7 +21,7 @@ return [
             'relationship_name' => null,
         ],
     ],
-    'glide_token' => env('CURATOR_GLIDE_TOKEN'),
+    'glide_token' => env('CURATOR_GLIDE_TOKEN', hash('sha256', config('app.key', 'fallback-key') . 'curator-glide')),
     'model' => App\Models\Media::class,
     'path_generator' => null,
     'glide' => [
