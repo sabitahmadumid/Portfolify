@@ -9,11 +9,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Drop existing foreign key constraints that reference curator table
-        DB::statement('ALTER TABLE posts DROP FOREIGN KEY posts_featured_image_id_foreign');
-        DB::statement('ALTER TABLE portfolios DROP FOREIGN KEY portfolios_featured_image_id_foreign');
-        DB::statement('ALTER TABLE categories DROP FOREIGN KEY categories_featured_image_id_foreign');
-        
         Schema::create('curator', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
@@ -39,15 +34,6 @@ return new class extends Migration
             $table->timestamps();
         });
         
-        // Change the featured_image_id columns to match curator's uuid primary key
-        DB::statement('ALTER TABLE posts MODIFY featured_image_id CHAR(36) NULL');
-        DB::statement('ALTER TABLE portfolios MODIFY featured_image_id CHAR(36) NULL');
-        DB::statement('ALTER TABLE categories MODIFY featured_image_id CHAR(36) NULL');
-        
-        // Recreate foreign key constraints with correct data types
-        DB::statement('ALTER TABLE posts ADD CONSTRAINT posts_featured_image_id_foreign FOREIGN KEY (featured_image_id) REFERENCES curator(id) ON DELETE SET NULL');
-        DB::statement('ALTER TABLE portfolios ADD CONSTRAINT portfolios_featured_image_id_foreign FOREIGN KEY (featured_image_id) REFERENCES curator(id) ON DELETE SET NULL');
-        DB::statement('ALTER TABLE categories ADD CONSTRAINT categories_featured_image_id_foreign FOREIGN KEY (featured_image_id) REFERENCES curator(id) ON DELETE SET NULL');
     }
 
     public function down(): void
