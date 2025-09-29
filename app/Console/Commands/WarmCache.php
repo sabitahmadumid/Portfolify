@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\PerformanceService;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class WarmCache extends Command
 {
@@ -36,6 +37,6 @@ class WarmCache extends Command
 
         $this->info('Cache warming completed successfully!');
 
-        return Command::SUCCESS;
+        return CommandAlias::SUCCESS;
     }
 }

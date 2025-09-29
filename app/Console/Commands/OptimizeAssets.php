@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class OptimizeAssets extends Command
 {
@@ -31,7 +33,7 @@ class OptimizeAssets extends Command
 
         $this->info('Asset optimization completed successfully!');
 
-        return Command::SUCCESS;
+        return CommandAlias::SUCCESS;
     }
 
     private function clearOldAssets(): void
@@ -100,6 +102,9 @@ class OptimizeAssets extends Command
         $this->line('- Consider lazy loading for images below the fold');
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     private function generateServiceWorker(): void
     {
         $this->info('Generating service worker cache manifest...');
