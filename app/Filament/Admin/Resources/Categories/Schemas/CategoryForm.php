@@ -2,15 +2,14 @@
 
 namespace App\Filament\Admin\Resources\Categories\Schemas;
 
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Awcodes\Curator\Components\Forms\CuratorPicker;
 
 class CategoryForm
 {
@@ -32,7 +31,7 @@ class CategoryForm
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
-                
+
                 Section::make('Appearance')
                     ->schema([
                         ColorPicker::make('color')
@@ -56,7 +55,7 @@ class CategoryForm
                             ->buttonLabel('Select Image'),
                     ])
                     ->columns(3),
-                
+
                 Section::make('Settings')
                     ->schema([
                         Toggle::make('is_active')
@@ -68,7 +67,7 @@ class CategoryForm
                             ->default(0),
                     ])
                     ->columns(2),
-                
+
                 Section::make('SEO')
                     ->schema([
                         TextInput::make('meta_title')

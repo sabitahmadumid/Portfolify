@@ -3,9 +3,9 @@
 namespace App\Filament\Admin\Widgets;
 
 use Awcodes\Curator\Models\Media;
+use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Filament\Support\Colors\Color;
 
 class MediaStatsWidget extends BaseWidget
 {
@@ -18,14 +18,14 @@ class MediaStatsWidget extends BaseWidget
         $totalMedia = Media::count();
         $totalSizeBytes = Media::sum('size');
         $totalSizeMB = round($totalSizeBytes / 1024 / 1024, 2);
-        
+
         return [
             Stat::make('Total Files', $totalMedia)
                 ->description('Media library files')
                 ->descriptionIcon('heroicon-o-photo')
                 ->color(Color::Cyan),
 
-            Stat::make('Storage Used', $totalSizeMB . ' MB')
+            Stat::make('Storage Used', $totalSizeMB.' MB')
                 ->description('Total file size')
                 ->descriptionIcon('heroicon-o-cloud-arrow-up')
                 ->color(Color::Indigo),

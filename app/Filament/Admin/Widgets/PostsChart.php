@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Widgets;
 use App\Models\Post;
 use Carbon\Carbon;
 use Filament\Widgets\LineChartWidget;
-use Filament\Support\Colors\Color;
 
 class PostsChart extends LineChartWidget
 {
@@ -39,11 +38,11 @@ class PostsChart extends LineChartWidget
         for ($i = 11; $i >= 0; $i--) {
             $date = Carbon::now()->subMonths($i);
             $months->push($date->format('M Y'));
-            
+
             $postCount = Post::whereYear('created_at', $date->year)
                 ->whereMonth('created_at', $date->month)
                 ->count();
-            
+
             $posts->push($postCount);
         }
 

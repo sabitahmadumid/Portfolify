@@ -7,7 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "awcodes/filament-curator": "^4.0@dev",
+        "awcodes/filament-curator": "^4.0",
         "cviebrock/eloquent-sluggable": "^12.0",
         "filament/filament": "^4.0",
         "inerba/filament-db-config": "^1.1",
@@ -80,6 +80,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

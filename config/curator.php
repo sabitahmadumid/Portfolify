@@ -22,7 +22,7 @@ return [
         ],
     ],
     'glide_token' => env('CURATOR_GLIDE_TOKEN'),
-    'model' => Awcodes\Curator\Models\Media::class,
+    'model' => App\Models\Media::class,
     'path_generator' => null,
     'glide' => [
         'fallbacks' => [
@@ -41,11 +41,11 @@ return [
             'should_register' => true,
             'should_show_badge' => false,
         ],
-        'resource' => Awcodes\Curator\Resources\Media\MediaResource::class,
+        'resource' => App\Filament\Resources\MediaResource::class,
         'pages' => [
-            'create' => Awcodes\Curator\Resources\Media\Pages\CreateMedia::class,
-            'edit' => Awcodes\Curator\Resources\Media\Pages\EditMedia::class,
-            'index' => Awcodes\Curator\Resources\Media\Pages\ListMedia::class,
+            'create' => App\Filament\Resources\MediaResource\Pages\CreateMedia::class,
+            'edit' => App\Filament\Resources\MediaResource\Pages\EditMedia::class,
+            'index' => App\Filament\Resources\MediaResource\Pages\ListMedia::class,
         ],
         'schemas' => [
             'form' => Awcodes\Curator\Resources\Media\Schemas\MediaForm::class,

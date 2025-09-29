@@ -3,8 +3,6 @@
 namespace App\Filament\Admin\Widgets;
 
 use App\Models\Post;
-use App\Models\Comment;
-use App\Models\User;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -15,7 +13,7 @@ class LatestPostsWidget extends BaseWidget
 
     protected static ?int $sort = 3;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {

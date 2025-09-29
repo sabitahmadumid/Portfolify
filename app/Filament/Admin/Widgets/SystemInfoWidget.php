@@ -11,7 +11,7 @@ class SystemInfoWidget extends Widget
 
     protected static ?int $sort = 6;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getViewData(): array
     {
@@ -28,8 +28,10 @@ class SystemInfoWidget extends Widget
     {
         if (function_exists('sys_getloadavg')) {
             $uptime = shell_exec('uptime -p');
+
             return $uptime ? trim($uptime) : 'N/A';
         }
+
         return 'N/A';
     }
 
@@ -37,6 +39,7 @@ class SystemInfoWidget extends Widget
     {
         $bytes = memory_get_usage(true);
         $mb = round($bytes / 1024 / 1024, 2);
-        return $mb . ' MB';
+
+        return $mb.' MB';
     }
 }

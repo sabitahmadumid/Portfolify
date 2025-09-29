@@ -7,9 +7,9 @@ use App\Models\Comment;
 use App\Models\Portfolio;
 use App\Models\Post;
 use App\Models\User;
+use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Filament\Support\Colors\Color;
 
 class StatsOverviewWidget extends BaseWidget
 {

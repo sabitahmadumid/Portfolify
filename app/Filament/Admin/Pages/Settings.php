@@ -5,10 +5,13 @@ namespace App\Filament\Admin\Pages;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use BackedEnum;
 use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -57,6 +60,7 @@ class Settings extends AbstractPageSettings
         $seoSettings = $this->getSettingsForGroup('seo');
         $contactSettings = $this->getSettingsForGroup('contact');
         $aboutSettings = $this->getSettingsForGroup('about');
+        $footerSettings = $this->getSettingsForGroup('footer');
 
         return [
             // General/Site settings
@@ -204,6 +208,33 @@ class Settings extends AbstractPageSettings
             'about_cta_description' => $aboutSettings['about_cta_description'] ?? 'Ready to bring your ideas to life? I\'d love to hear about your project and explore how we can work together.',
             'about_cta_button_contact' => $aboutSettings['about_cta_button_contact'] ?? 'Start a Conversation',
             'about_cta_button_work' => $aboutSettings['about_cta_button_work'] ?? 'View My Work',
+
+            // Footer settings
+            'footer_brand_name' => $footerSettings['brand_name'] ?? 'Portfolify',
+            'footer_brand_description' => $footerSettings['brand_description'] ?? 'Creating digital experiences that inspire and connect. Passionate about design, technology, and storytelling.',
+            'footer_show_brand_logo' => $footerSettings['show_brand_logo'] ?? true,
+            'footer_brand_logo_letter' => $footerSettings['brand_logo_letter'] ?? 'P',
+            'footer_show_copyright_year' => $footerSettings['show_copyright_year'] ?? true,
+            'footer_copyright_text' => $footerSettings['copyright_text'] ?? 'All rights reserved. Built with ❤️ using Laravel & Tailwind CSS.',
+            'footer_show_quick_links' => $footerSettings['show_quick_links'] ?? true,
+            'footer_quick_links_title' => $footerSettings['quick_links_title'] ?? 'Quick Links',
+            'footer_quick_links' => $footerSettings['quick_links'] ?? [
+                ['label' => 'Home', 'url' => 'home', 'type' => 'route'],
+                ['label' => 'Portfolio', 'url' => 'portfolio.index', 'type' => 'route'],
+                ['label' => 'Blog', 'url' => 'blog.index', 'type' => 'route'],
+                ['label' => 'About', 'url' => 'about', 'type' => 'route'],
+                ['label' => 'Contact', 'url' => 'contact', 'type' => 'route'],
+            ],
+            'footer_show_social_links' => $footerSettings['show_social_links'] ?? true,
+            'footer_social_links_title' => $footerSettings['social_links_title'] ?? 'Connect',
+            'footer_social_twitter_show' => $footerSettings['social_twitter_show'] ?? true,
+            'footer_social_linkedin_show' => $footerSettings['social_linkedin_show'] ?? true,
+            'footer_social_github_show' => $footerSettings['social_github_show'] ?? true,
+            'footer_social_instagram_show' => $footerSettings['social_instagram_show'] ?? false,
+            'footer_social_facebook_show' => $footerSettings['social_facebook_show'] ?? false,
+            'footer_social_youtube_show' => $footerSettings['social_youtube_show'] ?? false,
+            'footer_layout_columns' => $footerSettings['layout_columns'] ?? 'grid-cols-1 md:grid-cols-4',
+            'footer_brand_column_span' => $footerSettings['brand_column_span'] ?? 'md:col-span-2',
         ];
     }
 
@@ -351,6 +382,39 @@ class Settings extends AbstractPageSettings
             'about_cta_button_contact' => $data['about_cta_button_contact'] ?? null,
             'about_cta_button_work' => $data['about_cta_button_work'] ?? null,
         ]);
+
+        // Save footer settings
+        $this->saveToGroup('footer', [
+            'brand_name' => $data['footer_brand_name'] ?? null,
+            'brand_description' => $data['footer_brand_description'] ?? null,
+            'show_brand_logo' => $data['footer_show_brand_logo'] ?? true,
+            'brand_logo_letter' => $data['footer_brand_logo_letter'] ?? 'P',
+            'show_copyright_year' => $data['footer_show_copyright_year'] ?? true,
+            'copyright_text' => $data['footer_copyright_text'] ?? null,
+            'show_quick_links' => $data['footer_show_quick_links'] ?? true,
+            'quick_links_title' => $data['footer_quick_links_title'] ?? null,
+            'quick_links' => $data['footer_quick_links'] ?? [],
+            'show_social_links' => $data['footer_show_social_links'] ?? true,
+            'social_links_title' => $data['footer_social_links_title'] ?? null,
+            'social_twitter_show' => $data['footer_social_twitter_show'] ?? true,
+            'social_linkedin_show' => $data['footer_social_linkedin_show'] ?? true,
+            'social_github_show' => $data['footer_social_github_show'] ?? true,
+            'social_instagram_show' => $data['footer_social_instagram_show'] ?? false,
+            'social_facebook_show' => $data['footer_social_facebook_show'] ?? false,
+            'social_youtube_show' => $data['footer_social_youtube_show'] ?? false,
+            'layout_columns' => $data['footer_layout_columns'] ?? 'grid-cols-1 md:grid-cols-4',
+            'brand_column_span' => $data['footer_brand_column_span'] ?? 'md:col-span-2',
+        ]);
+
+        // Clear settings cache to ensure frontend reflects changes immediately
+        // cache()->forget('settings.global');
+        // cache()->forget('settings.seo');
+        // cache()->forget('settings.blog');
+        // cache()->forget('settings.footer');
+
+        // Also clear view cache to ensure templates are refreshed
+        \Artisan::call('view:clear');
+        \Artisan::call('cache:clear');
 
         \Filament\Notifications\Notification::make()
             ->title('Settings saved successfully')
@@ -1062,6 +1126,157 @@ class Settings extends AbstractPageSettings
                                         TextInput::make('about_cta_button_work')
                                             ->label('Work Button Text')
                                             ->placeholder('View My Work'),
+                                    ])
+                                    ->columns(2),
+                            ]),
+
+                        // Footer Settings Tab
+                        Tabs\Tab::make('Footer')
+                            ->icon('heroicon-o-building-storefront')
+                            ->schema([
+                                Section::make('Brand Section')
+                                    ->description('Configure the brand/company section of the footer')
+                                    ->schema([
+                                        TextInput::make('footer_brand_name')
+                                            ->label('Brand Name')
+                                            ->placeholder('Your brand name')
+                                            ->maxLength(255),
+
+                                        Textarea::make('footer_brand_description')
+                                            ->label('Brand Description')
+                                            ->placeholder('Brief description about your brand...')
+                                            ->rows(3)
+                                            ->maxLength(500),
+
+                                        Toggle::make('footer_show_brand_logo')
+                                            ->label('Show Brand Logo')
+                                            ->default(true)
+                                            ->helperText('Display a small logo/icon next to the brand name'),
+
+                                        TextInput::make('footer_brand_logo_letter')
+                                            ->label('Logo Letter')
+                                            ->placeholder('P')
+                                            ->maxLength(2)
+                                            ->helperText('Single letter or symbol to display in the logo circle'),
+                                    ])
+                                    ->columns(2),
+
+                                Section::make('Quick Links')
+                                    ->description('Configure the quick navigation links in the footer')
+                                    ->schema([
+                                        Toggle::make('footer_show_quick_links')
+                                            ->label('Show Quick Links Section')
+                                            ->default(true),
+
+                                        TextInput::make('footer_quick_links_title')
+                                            ->label('Quick Links Title')
+                                            ->placeholder('Quick Links')
+                                            ->maxLength(100),
+
+                                        Repeater::make('footer_quick_links')
+                                            ->label('Footer Links')
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label('Link Label')
+                                                    ->required()
+                                                    ->maxLength(50),
+
+                                                Select::make('type')
+                                                    ->label('Link Type')
+                                                    ->options([
+                                                        'route' => 'Internal Route',
+                                                        'url' => 'External URL',
+                                                    ])
+                                                    ->default('route')
+                                                    ->live(),
+
+                                                TextInput::make('url')
+                                                    ->label('URL/Route')
+                                                    ->required()
+                                                    ->helperText('For routes: use route name (e.g., "home"). For URLs: use full URL.')
+                                                    ->maxLength(255),
+                                            ])
+                                            ->columns(3)
+                                            ->defaultItems(5)
+                                            ->addActionLabel('Add Link')
+                                            ->collapsible(),
+                                    ])
+                                    ->columns(1),
+
+                                Section::make('Social Links')
+                                    ->description('Configure social media links and their visibility')
+                                    ->schema([
+                                        Toggle::make('footer_show_social_links')
+                                            ->label('Show Social Links Section')
+                                            ->default(true),
+
+                                        TextInput::make('footer_social_links_title')
+                                            ->label('Social Links Title')
+                                            ->placeholder('Connect')
+                                            ->maxLength(100),
+
+                                        Grid::make(3)
+                                            ->schema([
+                                                Toggle::make('footer_social_twitter_show')
+                                                    ->label('Show Twitter')
+                                                    ->default(true),
+
+                                                Toggle::make('footer_social_linkedin_show')
+                                                    ->label('Show LinkedIn')
+                                                    ->default(true),
+
+                                                Toggle::make('footer_social_github_show')
+                                                    ->label('Show GitHub')
+                                                    ->default(true),
+
+                                                Toggle::make('footer_social_instagram_show')
+                                                    ->label('Show Instagram')
+                                                    ->default(false),
+
+                                                Toggle::make('footer_social_facebook_show')
+                                                    ->label('Show Facebook')
+                                                    ->default(false),
+
+                                                Toggle::make('footer_social_youtube_show')
+                                                    ->label('Show YouTube')
+                                                    ->default(false),
+                                            ]),
+                                    ])
+                                    ->columns(1),
+
+                                Section::make('Copyright & Layout')
+                                    ->description('Configure copyright text and footer layout')
+                                    ->schema([
+                                        Toggle::make('footer_show_copyright_year')
+                                            ->label('Show Copyright Year')
+                                            ->default(true)
+                                            ->helperText('Automatically display current year in copyright'),
+
+                                        Textarea::make('footer_copyright_text')
+                                            ->label('Copyright Text')
+                                            ->placeholder('All rights reserved. Built with ❤️ using Laravel & Tailwind CSS.')
+                                            ->rows(2)
+                                            ->maxLength(300),
+
+                                        Select::make('footer_layout_columns')
+                                            ->label('Footer Layout')
+                                            ->options([
+                                                'grid-cols-1' => 'Single Column',
+                                                'grid-cols-1 md:grid-cols-2' => 'Two Columns on Desktop',
+                                                'grid-cols-1 md:grid-cols-3' => 'Three Columns on Desktop',
+                                                'grid-cols-1 md:grid-cols-4' => 'Four Columns on Desktop',
+                                            ])
+                                            ->default('grid-cols-1 md:grid-cols-4'),
+
+                                        Select::make('footer_brand_column_span')
+                                            ->label('Brand Section Width')
+                                            ->options([
+                                                '' => 'Single Column',
+                                                'md:col-span-2' => 'Two Columns',
+                                                'md:col-span-3' => 'Three Columns',
+                                            ])
+                                            ->default('md:col-span-2')
+                                            ->helperText('How much space the brand section should take'),
                                     ])
                                     ->columns(2),
                             ]),

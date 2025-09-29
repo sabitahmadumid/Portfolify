@@ -2,13 +2,12 @@
 
 namespace App\Filament\Admin\Widgets;
 
-use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 /**
  * System Resource Monitoring Widget
- * 
+ *
  * Displays real-time system resource usage including disk and memory consumption.
  * Complementary to SystemInfoWidget which shows system version information.
  */

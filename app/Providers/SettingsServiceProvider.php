@@ -19,6 +19,7 @@ class SettingsServiceProvider extends ServiceProvider
                 'globalSettings' => cache()->remember('settings.global', 3600, fn () => $this->getGlobalSettings()),
                 'seoSettings' => cache()->remember('settings.seo', 3600, fn () => $this->getSeoSettings()),
                 'blogSettings' => cache()->remember('settings.blog', 3600, fn () => $this->getBlogSettings()),
+                'footerSettings' => cache()->remember('settings.footer', 3600, fn () => $this->getFooterSettings()),
             ]);
         });
     }
@@ -187,6 +188,50 @@ class SettingsServiceProvider extends ServiceProvider
             'enable_tags' => (bool) db_config('blog.enable_tags', true),
             'enable_reading_time' => (bool) db_config('blog.enable_reading_time', true),
             'date_format' => db_config('blog.date_format', 'M j, Y'),
+        ];
+    }
+
+    /**
+     * Get footer settings
+     */
+    private function getFooterSettings(): array
+    {
+        return [
+            // Brand settings
+            'brand_name' => db_config('footer.brand_name', 'Portfolify'),
+            'brand_description' => db_config('footer.brand_description', 'Creating digital experiences that inspire and connect. Passionate about design, technology, and storytelling.'),
+            'show_brand_logo' => (bool) db_config('footer.show_brand_logo', true),
+            'brand_logo_letter' => db_config('footer.brand_logo_letter', 'P'),
+            'copyright_text' => db_config('footer.copyright_text', 'All rights reserved. Built with ❤️ using Laravel & Tailwind CSS.'),
+            'show_copyright_year' => (bool) db_config('footer.show_copyright_year', true),
+            
+            // Quick links
+            'show_quick_links' => (bool) db_config('footer.show_quick_links', true),
+            'quick_links_title' => db_config('footer.quick_links_title', 'Quick Links'),
+            'quick_links' => db_config('footer.quick_links', [
+                ['label' => 'Home', 'url' => 'home', 'type' => 'route'],
+                ['label' => 'Portfolio', 'url' => 'portfolio.index', 'type' => 'route'],
+                ['label' => 'Blog', 'url' => 'blog.index', 'type' => 'route'],
+                ['label' => 'About', 'url' => 'about', 'type' => 'route'],
+                ['label' => 'Contact', 'url' => 'contact', 'type' => 'route'],
+            ]),
+            
+            // Social links
+            'show_social_links' => (bool) db_config('footer.show_social_links', true),
+            'social_links_title' => db_config('footer.social_links_title', 'Connect'),
+            'social_twitter_show' => (bool) db_config('footer.social_twitter_show', true),
+            'social_linkedin_show' => (bool) db_config('footer.social_linkedin_show', true),
+            'social_github_show' => (bool) db_config('footer.social_github_show', true),
+            'social_instagram_show' => (bool) db_config('footer.social_instagram_show', false),
+            'social_facebook_show' => (bool) db_config('footer.social_facebook_show', false),
+            'social_youtube_show' => (bool) db_config('footer.social_youtube_show', false),
+            
+            // Layout and styling
+            'layout_columns' => db_config('footer.layout_columns', 'grid-cols-1 md:grid-cols-4'),
+            'brand_column_span' => db_config('footer.brand_column_span', 'md:col-span-2'),
+            'background_style' => db_config('footer.background_style', 'bg-gray-50 dark:bg-gray-900'),
+            'border_style' => db_config('footer.border_style', 'border-t border-gray-200 dark:border-gray-800'),
+            'text_color' => db_config('footer.text_color', 'text-gray-600 dark:text-gray-400'),
         ];
     }
 

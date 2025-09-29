@@ -63,6 +63,42 @@ class ConfigSeeder extends Seeder
             ['key' => 'seo.google_analytics_id', 'value' => ''],
             ['key' => 'seo.custom_head_code', 'value' => ''],
             ['key' => 'seo.custom_body_code', 'value' => ''],
+
+            // Footer Settings
+            ['key' => 'footer.brand_name', 'value' => 'Portfolify'],
+            ['key' => 'footer.brand_description', 'value' => 'Creating digital experiences that inspire and connect. Passionate about design, technology, and storytelling.'],
+            ['key' => 'footer.show_brand_logo', 'value' => true],
+            ['key' => 'footer.brand_logo_letter', 'value' => 'P'],
+            ['key' => 'footer.copyright_text', 'value' => 'All rights reserved. Built with ❤️ using Laravel & Tailwind CSS.'],
+            ['key' => 'footer.show_copyright_year', 'value' => true],
+            
+            // Footer Quick Links
+            ['key' => 'footer.show_quick_links', 'value' => true],
+            ['key' => 'footer.quick_links_title', 'value' => 'Quick Links'],
+            ['key' => 'footer.quick_links', 'value' => [
+                ['label' => 'Home', 'url' => 'home', 'type' => 'route'],
+                ['label' => 'Portfolio', 'url' => 'portfolio.index', 'type' => 'route'],
+                ['label' => 'Blog', 'url' => 'blog.index', 'type' => 'route'],
+                ['label' => 'About', 'url' => 'about', 'type' => 'route'],
+                ['label' => 'Contact', 'url' => 'contact', 'type' => 'route'],
+            ]],
+            
+            // Footer Social Links
+            ['key' => 'footer.show_social_links', 'value' => true],
+            ['key' => 'footer.social_links_title', 'value' => 'Connect'],
+            ['key' => 'footer.social_twitter_show', 'value' => true],
+            ['key' => 'footer.social_linkedin_show', 'value' => true],
+            ['key' => 'footer.social_github_show', 'value' => true],
+            ['key' => 'footer.social_instagram_show', 'value' => false],
+            ['key' => 'footer.social_facebook_show', 'value' => false],
+            ['key' => 'footer.social_youtube_show', 'value' => false],
+            
+            // Footer Layout
+            ['key' => 'footer.layout_columns', 'value' => 'grid-cols-1 md:grid-cols-4'],
+            ['key' => 'footer.brand_column_span', 'value' => 'md:col-span-2'],
+            ['key' => 'footer.background_style', 'value' => 'bg-gray-50 dark:bg-gray-900'],
+            ['key' => 'footer.border_style', 'value' => 'border-t border-gray-200 dark:border-gray-800'],
+            ['key' => 'footer.text_color', 'value' => 'text-gray-600 dark:text-gray-400'],
         ];
 
         // Contact Page Settings

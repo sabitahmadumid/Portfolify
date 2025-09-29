@@ -6,7 +6,6 @@ use App\Models\Comment;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Filament\Support\Colors\Color;
 
 class RecentCommentsWidget extends BaseWidget
 {
@@ -14,7 +13,7 @@ class RecentCommentsWidget extends BaseWidget
 
     protected static ?int $sort = 4;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {

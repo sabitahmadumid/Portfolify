@@ -2,17 +2,16 @@
 
 namespace App\Filament\Admin\Resources\Portfolios\Schemas;
 
+use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
-use Awcodes\Curator\Components\Forms\CuratorPicker;
 
 class PortfolioForm
 {
@@ -39,7 +38,7 @@ class PortfolioForm
                                             ->label('Project Date'),
                                     ])
                                     ->columns(2),
-                                
+
                                 Section::make('Description & Content')
                                     ->schema([
                                         Textarea::make('description')
@@ -64,7 +63,7 @@ class PortfolioForm
                                             ])
                                             ->columnSpanFull(),
                                     ]),
-                                
+
                                 Section::make('Technologies & Links')
                                     ->schema([
                                         TagsInput::make('technologies')
@@ -81,7 +80,7 @@ class PortfolioForm
                                     ])
                                     ->columns(2),
                             ]),
-                        
+
                         Tabs\Tab::make('Media')
                             ->schema([
                                 Section::make('Images')
@@ -98,7 +97,7 @@ class PortfolioForm
                                     ])
                                     ->columns(1),
                             ]),
-                        
+
                         Tabs\Tab::make('Settings')
                             ->schema([
                                 Section::make('Visibility')
@@ -116,7 +115,7 @@ class PortfolioForm
                                     ])
                                     ->columns(3),
                             ]),
-                        
+
                         Tabs\Tab::make('SEO')
                             ->schema([
                                 Section::make('Meta Data')

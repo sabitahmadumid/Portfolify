@@ -41,7 +41,8 @@ return new class extends Migration
         Schema::table('posts', function (Blueprint $table) {
             $table->dropIndex(['is_published', 'published_at']);
             $table->dropIndex(['is_featured', 'created_at']);
-            $table->dropIndex(['category_id', 'is_published']);
+            // Skip dropping category_id index as it might be used by foreign key
+            // $table->dropIndex(['category_id', 'is_published']);
         });
 
         Schema::table('portfolios', function (Blueprint $table) {

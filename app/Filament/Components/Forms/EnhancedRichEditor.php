@@ -3,20 +3,17 @@
 namespace App\Filament\Components\Forms;
 
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Actions\Action;
-use Awcodes\Curator\Models\Media;
-use Closure;
 
 class EnhancedRichEditor extends RichEditor
 {
     protected string $view = 'filament.components.enhanced-rich-editor';
-    
+
     protected array $customToolbarButtons = [];
-    
+
     public static function make(string $name): static
     {
         $static = parent::make($name);
-        
+
         return $static
             ->toolbarButtons([
                 ['bold', 'italic', 'underline', 'strike', 'link'],
@@ -29,7 +26,7 @@ class EnhancedRichEditor extends RichEditor
             ->fileAttachmentsDirectory('attachments')
             ->fileAttachmentsVisibility('public')
             ->extraInputAttributes([
-                'style' => 'min-height: 300px;'
+                'style' => 'min-height: 300px;',
             ])
             ->placeholder('Start writing your content...');
     }
@@ -37,7 +34,7 @@ class EnhancedRichEditor extends RichEditor
     public function mediaButton(): static
     {
         $this->customToolbarButtons[] = 'media';
-        
+
         return $this;
     }
 
