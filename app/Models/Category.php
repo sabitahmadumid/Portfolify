@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Awcodes\Curator\Models\Media;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +20,6 @@ class Category extends Model
         'description',
         'color',
         'icon',
-        'featured_image',
         'featured_image_id',
         'is_active',
         'meta_title',
@@ -60,7 +58,7 @@ class Category extends Model
     public function publishedPostsWithRelations(): HasMany
     {
         return $this->publishedPosts()
-            ->with(['user:id,name', 'featuredImage'])
+            ->with(['user:id,name'])
             ->select(['id', 'title', 'slug', 'excerpt', 'user_id', 'category_id', 'featured_image_id', 'published_at', 'views_count']);
     }
 
@@ -75,7 +73,7 @@ class Category extends Model
 
     public function featuredImage(): BelongsTo
     {
-        return $this->belongsTo(Media::class, 'featured_image_id');
+        return $this->belongsTo(\Awcodes\Curator\Models\Media::class, 'featured_image_id');
     }
 
     public function scopeActive(Builder $query): Builder

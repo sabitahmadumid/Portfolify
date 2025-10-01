@@ -83,7 +83,7 @@
                 <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
                     @if($portfolio->featuredImage)
                         <img 
-                            src="{{ $portfolio->featuredImage->url }}"
+                            src="{{ Storage::disk($portfolio->featuredImage->disk)->url($portfolio->featuredImage->path) }}"
                             class="w-full h-full object-cover"
                             alt="{{ $portfolio->title }}"
                             loading="eager"
@@ -188,7 +188,7 @@
                 <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
                     @if($project->featuredImage)
                         <img 
-                            src="{{ $project->featuredImage->url }}"
+                            src="{{ Storage::disk($project->featuredImage->disk)->url($project->featuredImage->path) }}"
                             alt="{{ $project->title }}"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy"

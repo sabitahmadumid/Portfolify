@@ -145,7 +145,7 @@
                                 <div class="relative overflow-hidden">
                                     @if($featured->featuredImage)
                                         <img 
-                                            src="{{ $featured->featuredImage->url }}"
+                                            src="{{ Storage::disk($featured->featuredImage->disk)->url($featured->featuredImage->path) }}"
                                             class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                                             alt="{{ $featured->title }}"
                                             loading="lazy"
@@ -235,7 +235,7 @@
                                     <div class="aspect-video lg:aspect-auto lg:h-[240px] overflow-hidden">
                                         @if($post->featuredImage)
                                             <img 
-                                                src="{{ $post->featuredImage->url }}"
+                                                src="{{ Storage::disk($post->featuredImage->disk)->url($post->featuredImage->path) }}"
                                                 class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                                                 alt="{{ $post->title }}"
                                                 loading="lazy"

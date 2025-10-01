@@ -13,16 +13,16 @@ return [
     'default_disk' => env('CURATOR_DEFAULT_DISK', 'public'),
     'default_visibility' => 'public',
     'features' => [
-        'curations' => true,
-        'file_swap' => true,
+        'curations' => false,
+        'file_swap' => false,
         'directory_restriction' => false,
         'tenancy' => [
             'enabled' => false,
             'relationship_name' => null,
         ],
     ],
-    'glide_token' => env('CURATOR_GLIDE_TOKEN', hash('sha256', config('app.key', 'fallback-key') . 'curator-glide')),
-    'model' => App\Models\Media::class,
+    'glide_token' => env('CURATOR_GLIDE_TOKEN', hash('sha256', config('app.key', 'fallback-key').'curator-glide')),
+    'model' => \Awcodes\Curator\Models\Media::class,
     'path_generator' => null,
     'glide' => [
         'fallbacks' => [

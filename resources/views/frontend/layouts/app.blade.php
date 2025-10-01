@@ -152,7 +152,7 @@
                         <a href="{{ route('home') }}" class="flex items-center space-x-2">
                             @if($globalSettings['site_logo'])
                                 <img 
-                                    src="{{ $globalSettings['site_logo']->url }}"
+                                    src="{{ Storage::disk($globalSettings['site_logo']->disk)->url($globalSettings['site_logo']->path) }}"
                                     class="h-8 w-auto"
                                     alt="{{ $globalSettings['site_name'] }}"
                                     loading="eager"

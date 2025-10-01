@@ -65,7 +65,7 @@
                     <div class="relative aspect-video overflow-hidden">
                         @if($portfolio->featuredImage)
                             <img 
-                                src="{{ $portfolio->featuredImage->url }}"
+                                src="{{ Storage::disk($portfolio->featuredImage->disk)->url($portfolio->featuredImage->path) }}"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 alt="{{ $portfolio->title }}"
                                 loading="lazy"

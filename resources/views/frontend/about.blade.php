@@ -41,7 +41,7 @@
                     <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-3xl shadow-2xl overflow-hidden">
                         @if($globalSettings['profile_image'])
                             <img 
-                                src="{{ $globalSettings['profile_image']->url }}"
+                                src="{{ Storage::disk($globalSettings['profile_image']->disk)->url($globalSettings['profile_image']->path) }}"
                                 alt="Profile Image"
                                 class="w-full h-full object-cover"
                                 loading="eager"

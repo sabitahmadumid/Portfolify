@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Awcodes\Curator\Models\Media;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +19,6 @@ class Post extends Model
         'slug',
         'excerpt',
         'content',
-        'featured_image',
         'featured_image_id',
         'gallery_images',
         'user_id',
@@ -81,7 +79,7 @@ class Post extends Model
 
     public function featuredImage(): BelongsTo
     {
-        return $this->belongsTo(Media::class, 'featured_image_id');
+        return $this->belongsTo(\Awcodes\Curator\Models\Media::class, 'featured_image_id');
     }
 
     public function scopePublished(Builder $query): Builder

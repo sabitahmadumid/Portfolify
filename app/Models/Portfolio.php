@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Builder;
-use Awcodes\Curator\Models\Media;
 
 class Portfolio extends Model
 {
@@ -23,7 +22,6 @@ class Portfolio extends Model
         'project_url',
         'github_url',
         'technologies',
-        'featured_image',
         'featured_image_id',
         'gallery_images',
         'project_date',
@@ -51,8 +49,8 @@ class Portfolio extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 
@@ -68,7 +66,7 @@ class Portfolio extends Model
 
     public function featuredImage(): BelongsTo
     {
-        return $this->belongsTo(Media::class, 'featured_image_id');
+        return $this->belongsTo(\Awcodes\Curator\Models\Media::class, 'featured_image_id');
     }
 
     public function getRouteKeyName(): string

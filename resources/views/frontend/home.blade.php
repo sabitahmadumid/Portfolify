@@ -72,7 +72,7 @@
                 <!-- Project Image -->
                 <div class="aspect-video overflow-hidden">
                     <x-curator-image 
-                        :media="$project"
+                        :media="$project->featuredImage"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         :alt="$project->title"
                     />
@@ -147,7 +147,7 @@
                 <div class="relative overflow-hidden flex-shrink-0">
                     @if($post->featuredImage)
                         <img 
-                            src="{{ $post->featuredImage->url }}"
+                            src="{{ Storage::disk($post->featuredImage->disk)->url($post->featuredImage->path) }}"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                             alt="{{ $post->title }}"
                             loading="lazy"

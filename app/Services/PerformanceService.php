@@ -43,7 +43,7 @@ class PerformanceService
         Cache::remember('blog.featured_posts', 600, function () {
             return Post::published()
                 ->featured()
-                ->with(['featuredImage', 'category:id,name,slug'])
+                ->with(['category:id,name,slug'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(config('blog.featured_posts_count', 3))
@@ -53,7 +53,7 @@ class PerformanceService
         // Cache recent posts for homepage
         Cache::remember('homepage.recent_posts', 900, function () {
             return Post::published()
-                ->with(['featuredImage', 'category:id,name,slug'])
+                ->with(['category:id,name,slug'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(3)
@@ -64,7 +64,7 @@ class PerformanceService
         Cache::remember('blog.popular_posts', 1800, function () {
             return Post::published()
                 ->popular(30)
-                ->with(['featuredImage', 'category:id,name,slug'])
+                ->with(['category:id,name,slug'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'featured_image_id', 'published_at', 'views_count'])
                 ->take(5)
                 ->get();

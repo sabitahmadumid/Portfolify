@@ -23,7 +23,7 @@
 
 @if($mediaItem && $mediaItem instanceof \Awcodes\Curator\Models\Media)
     @if($mediaItem->type && Str::startsWith($mediaItem->type, 'image/'))
-        <img src="{{ $mediaItem->url }}" 
+        <img src="{{ Storage::disk($mediaItem->disk)->url($mediaItem->path) }}" 
              alt="{{ $alt ?: $mediaItem->alt ?: 'Image' }}"
              {{ $attributes->merge(['class' => $class]) }}
              loading="{{ $loading }}"

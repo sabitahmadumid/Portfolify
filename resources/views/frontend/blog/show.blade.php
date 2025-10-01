@@ -124,7 +124,7 @@
         <div class="mb-16 animate-fade-in-up" style="animation-delay: 0.6s">
             <div class="aspect-video bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-700 rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-700 group relative">
                 <img 
-                    src="{{ $post->featuredImage->url }}"
+                    src="{{ Storage::disk($post->featuredImage->disk)->url($post->featuredImage->path) }}"
                     alt="{{ $post->title }}"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="eager"
@@ -260,7 +260,7 @@
                             <div class="h-48 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-800 dark:via-gray-800 dark:to-gray-700 overflow-hidden flex-shrink-0 relative">
                                 @if($related->featuredImage)
                                     <img 
-                                        src="{{ $related->featuredImage->url }}"
+                                        src="{{ Storage::disk($related->featuredImage->disk)->url($related->featuredImage->path) }}"
                                         alt="{{ $related->title }}"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         loading="lazy"

@@ -24,7 +24,10 @@ class CategoriesTable
                     ->searchable(),
                 TextColumn::make('icon')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+                ImageColumn::make('featuredImage.path')
+                    ->label('Featured Image')
+                    ->disk('public')
+                    ->height(50),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('meta_title')

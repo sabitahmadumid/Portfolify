@@ -26,7 +26,10 @@ class PortfoliosTable
                     ->searchable(),
                 TextColumn::make('github_url')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+                ImageColumn::make('featuredImage.path')
+                    ->label('Featured Image')
+                    ->disk('public')
+                    ->height(50),
                 TextColumn::make('project_date')
                     ->date()
                     ->sortable(),

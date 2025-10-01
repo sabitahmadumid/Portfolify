@@ -14,14 +14,14 @@ class HomeController extends Controller
         $data = cache()->remember('homepage.data', 900, function () {
             $featuredProjects = Portfolio::published()
                 ->featured()
-                ->with('featuredImage')
+
                 ->select(['id', 'title', 'slug', 'description', 'featured_image_id', 'created_at'])
                 ->latest()
                 ->take(3)
                 ->get();
 
             $recentPosts = Post::published()
-                ->with(['featuredImage', 'category:id,name,slug', 'user:id,name'])
+                ->with(['category:id,name,slug', 'user:id,name'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'user_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(3)

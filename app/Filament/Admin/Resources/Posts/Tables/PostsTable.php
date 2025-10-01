@@ -20,7 +20,10 @@ class PostsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+                ImageColumn::make('featuredImage.path')
+                    ->label('Featured Image')
+                    ->disk('public')
+                    ->height(50),
                 TextColumn::make('user.name')
                     ->searchable(),
                 TextColumn::make('category.name')

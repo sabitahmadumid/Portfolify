@@ -186,14 +186,14 @@
                     <div class="mb-6">
                         @if($globalSettings['profile_image'])
                             <img
-                                src="{{ $globalSettings['profile_image']->url }}"
+                                src="{{ Storage::disk($globalSettings['profile_image']->disk)->url($globalSettings['profile_image']->path) }}"
                                 class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-lg"
                                 alt="Profile"
                                 loading="lazy"
                             />
                         @elseif($globalSettings['site_logo'])
                             <img
-                                src="{{ $globalSettings['site_logo']->url }}"
+                                src="{{ Storage::disk($globalSettings['site_logo']->disk)->url($globalSettings['site_logo']->path) }}"
                                 class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-lg"
                                 alt="Profile"
                                 loading="lazy"

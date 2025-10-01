@@ -11,7 +11,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $query = Post::published()
-            ->with(['user:id,name', 'category:id,name,slug', 'featuredImage'])
+            ->with(['user:id,name', 'category:id,name,slug'])
             ->select(['id', 'title', 'slug', 'excerpt', 'user_id', 'category_id', 'featured_image_id', 'published_at', 'views_count', 'reading_time'])
             ->latest('published_at');
 
@@ -46,7 +46,7 @@ class BlogController extends Controller
         $featuredPosts = cache()->remember('blog.featured_posts', 600, function () {
             return Post::published()
                 ->featured()
-                ->with(['featuredImage', 'category:id,name,slug', 'user:id,name'])
+                ->with(['category:id,name,slug', 'user:id,name'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'user_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(config('blog.featured_posts_count', 3))
@@ -94,7 +94,7 @@ class BlogController extends Controller
             return Post::published()
                 ->where('category_id', $post->category_id)
                 ->where('id', '!=', $post->id)
-                ->with(['featuredImage', 'category:id,name,slug'])
+                ->with(['category:id,name,slug'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(3)
@@ -107,7 +107,7 @@ class BlogController extends Controller
     public function category(Category $category)
     {
         $posts = $category->publishedPosts()
-            ->with(['user', 'category', 'featuredImage'])
+            ->with(['user', 'category'])
             ->latest('published_at')
             ->paginate(db_config('blog.posts_per_page', 10));
 

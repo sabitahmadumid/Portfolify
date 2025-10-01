@@ -85,7 +85,7 @@ class PortfolioForm
                             ->schema([
                                 Section::make('Images')
                                     ->schema([
-                                        CuratorPicker::make('featured_image')
+                                        CuratorPicker::make('featured_image_id')
                                             ->label('Featured Image')
                                             ->buttonLabel('Select Image')
                                             ->size('lg'),

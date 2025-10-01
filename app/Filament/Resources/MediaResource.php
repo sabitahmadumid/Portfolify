@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MediaResource\Pages;
-use App\Models\Media;
+use Awcodes\Curator\Models\Media;
 use Awcodes\Curator\Resources\Media\MediaResource as BaseMediaResource;
 
 class MediaResource extends BaseMediaResource

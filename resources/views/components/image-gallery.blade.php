@@ -71,7 +71,7 @@
 let currentImageIndex = 0;
 const galleryImages = @json($mediaImages->map(function($media) {
     return [
-        'url' => $media ? $media->url : '',
+        'url' => $media ? Storage::disk($media->disk)->url($media->path) : '',
         'alt' => $media ? ($media->alt ?? 'Gallery image') : '',
         'name' => $media ? $media->name : ''
     ];
