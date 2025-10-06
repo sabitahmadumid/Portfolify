@@ -11,16 +11,16 @@ return new class extends Migration
         Schema::create('curator', function (Blueprint $table) {
             $table->id();
 
-            $table->string('disk')->default('public');
+            $table->string('disk');
             $table->string('directory')->nullable();
             $table->string('visibility')->default('public');
-            $table->string('name')->default('');
-            $table->string('path')->index()->default('');
+            $table->string('name');
+            $table->string('path')->index();
             $table->unsignedInteger('width')->nullable();
             $table->unsignedInteger('height')->nullable();
             $table->unsignedInteger('size')->nullable();
-            $table->string('type')->default('');
-            $table->string('ext')->default('');
+            $table->string('type');
+            $table->string('ext');
             $table->string('alt')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
@@ -28,7 +28,6 @@ return new class extends Migration
             $table->text('pretty_name')->nullable();
             $table->text('exif')->nullable();
             $table->longText('curations')->nullable();
-            $table->unsignedBigInteger('tenant_id')->nullable();
 
             $table->timestamps();
         });

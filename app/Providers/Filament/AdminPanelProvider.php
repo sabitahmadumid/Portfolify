@@ -55,7 +55,12 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
             ])
             ->plugins([
-                \Awcodes\Curator\CuratorPlugin::make(),
+                \Awcodes\Curator\CuratorPlugin::make()
+                ->label('Media')
+                ->pluralLabel('Media')
+                ->navigationIcon('heroicon-o-photo')
+                ->navigationGroup('Content')
+                ->navigationSort(3),
                 \Inerba\DbConfig\DbConfigPlugin::make(),
             ])
             ->middleware([
