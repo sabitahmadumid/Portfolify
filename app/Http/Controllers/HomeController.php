@@ -21,7 +21,7 @@ class HomeController extends Controller
                 ->get();
 
             $recentPosts = Post::published()
-                ->with(['category:id,name,slug', 'user:id,name'])
+                ->with(['category:id,name,slug', 'user:id,name', 'featuredImage'])
                 ->select(['id', 'title', 'slug', 'excerpt', 'category_id', 'user_id', 'featured_image_id', 'published_at'])
                 ->latest('published_at')
                 ->take(3)
