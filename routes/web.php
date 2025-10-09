@@ -40,3 +40,15 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->nam
 Route::post('/contact', [\App\Http\Controllers\ContactMessageController::class, 'store'])
     ->middleware(['throttle:contact'])
     ->name('contact.store');
+
+// SEO routes
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])
+    ->name('sitemap')
+    ->middleware(['cache.control']);
+
+Route::get('/rss.xml', [\App\Http\Controllers\RSSController::class, 'index'])
+    ->name('rss')
+    ->middleware(['cache.control']);
+
+Route::get('/feed', [\App\Http\Controllers\RSSController::class, 'index'])
+    ->name('feed');

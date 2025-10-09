@@ -21,7 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register the ContactMessage observer
+        // Register observers
         ContactMessage::observe(ContactMessageObserver::class);
+
+        // Register SEO-related observers
+        \App\Models\Post::observe(\App\Observers\PostObserver::class);
+        \App\Models\Portfolio::observe(\App\Observers\PortfolioObserver::class);
+        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);
     }
 }

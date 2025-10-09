@@ -14,7 +14,7 @@ A modern, feature-rich portfolio and blog management system built with **Laravel
 - **Blog System** - Full-featured blog with categories, tags, and comments
 - **Portfolio Showcase** - Interactive portfolio section with project galleries
 - **Dark Mode Support** - Seamless light/dark theme switching
-- **SEO Optimized** - Meta tags, structured data, and performance optimized
+- **SEO Optimized** - XML sitemap, RSS feeds, meta tags, and structured data
 - **Comments System** - Nested comments with moderation capabilities
 - **Search Functionality** - Advanced search across posts and portfolios
 - **Reading Time Estimation** - Automatic reading time calculation for blog posts
@@ -196,7 +196,89 @@ php artisan queue:work
 └── tests/                 # Test files
 ```
 
-## 🔐 Admin Panel Access
+## � SEO Features
+
+### Sitemap Generation
+Portfolify includes comprehensive sitemap functionality using Spatie Sitemap. The sitemap is automatically generated and served at `/sitemap.xml`.
+
+**Sitemap URL:**
+- XML Sitemap: `https://your-domain.com/sitemap.xml`
+
+**What's included:**
+- Homepage and static pages (About, Contact)
+- Blog index and published posts
+- Active blog categories with posts
+- Portfolio index and published items
+- Automatic cache management (24-hour TTL)
+- Auto-refreshes when content is updated
+
+### RSS Feed
+Full-featured RSS feed for blog content:
+
+**RSS URLs:**
+- RSS Feed: `https://your-domain.com/rss.xml`
+- Alternative: `https://your-domain.com/feed`
+
+**RSS Features:**
+- Last 20 published blog posts (configurable)
+- Full content including excerpts
+- Author and category information
+- Proper RSS 2.0 format with namespaces
+- Automatic cache management (1-hour TTL)
+
+### Configuration
+Both sitemap and RSS can be configured in `config/blog.php`:
+
+```php
+'sitemap' => [
+    'enabled' => env('BLOG_SITEMAP_ENABLED', true),
+    'cache_ttl' => env('BLOG_SITEMAP_CACHE_TTL', 86400), // 24 hours
+    'include_images' => env('BLOG_SITEMAP_INCLUDE_IMAGES', true),
+],
+
+'rss' => [
+    'enabled' => env('BLOG_RSS_ENABLED', true),
+    'posts_count' => env('BLOG_RSS_POSTS_COUNT', 20),
+    'cache_ttl' => env('BLOG_RSS_CACHE_TTL', 3600), // 1 hour
+    'include_content' => env('BLOG_RSS_INCLUDE_CONTENT', true),
+],
+```
+
+### Environment Variables
+Add these to your `.env` file to customize SEO features:
+
+```env
+# Sitemap Configuration
+BLOG_SITEMAP_ENABLED=true
+BLOG_SITEMAP_CACHE_TTL=86400
+BLOG_SITEMAP_INCLUDE_IMAGES=true
+
+# RSS Configuration
+BLOG_RSS_ENABLED=true
+BLOG_RSS_POSTS_COUNT=20
+BLOG_RSS_CACHE_TTL=3600
+BLOG_RSS_INCLUDE_CONTENT=true
+```
+
+### Automatic Cache Management
+The system automatically clears sitemap and RSS caches when:
+- Blog posts are created, updated, or deleted
+- Portfolio items are modified
+- Blog categories are changed
+- Content publication status changes
+
+### robots.txt
+The included `public/robots.txt` file automatically references your sitemap:
+
+```txt
+User-agent: *
+Disallow:
+
+# Sitemap
+Sitemap: /sitemap.xml
+```
+
+## �🔐 Admin Panel Access
 
 Once installed, access the admin panel at:
 

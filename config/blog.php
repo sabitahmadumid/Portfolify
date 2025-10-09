@@ -55,11 +55,13 @@ return [
     'sitemap' => [
         'enabled' => env('BLOG_SITEMAP_ENABLED', true),
         'cache_ttl' => env('BLOG_SITEMAP_CACHE_TTL', 86400), // 24 hours
+        'include_images' => env('BLOG_SITEMAP_INCLUDE_IMAGES', true),
     ],
 
     'rss' => [
         'enabled' => env('BLOG_RSS_ENABLED', true),
         'posts_count' => env('BLOG_RSS_POSTS_COUNT', 20),
         'cache_ttl' => env('BLOG_RSS_CACHE_TTL', 3600), // 1 hour
+        'include_content' => env('BLOG_RSS_INCLUDE_CONTENT', true),
     ],
 ];
